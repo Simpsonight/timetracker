@@ -1,23 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import TimeAdd from "./components/TimeAdd/TimeAdd";
 
-function App() {
+const data = {
+  customers: [
+    {
+      id: 1,
+      customer: 'Kunde 1',
+      jobs: [
+        {
+          id: 1,
+          name: 'Kunde 1 - Job 1'
+        },
+        {
+          id: 2,
+          name: 'Kunde 1 - Job 2'
+        }
+      ]
+    },
+    {
+      id: 2,
+      customer: 'Kunde 2',
+      jobs: [
+        {
+          id: 1,
+          name: 'Kunde 2 - Job 1'
+        },
+        {
+          id: 2,
+          name: 'Kunde 2 - Job 2'
+        }
+      ]
+    },
+    {
+      id: 3,
+      customer: 'Kunde 3',
+      jobs: [
+        {
+          id: 1,
+          name: 'Kunde 3 - Job 1'
+        },
+        {
+          id: 2,
+          name: 'Kunde 3 - Job 2'
+        }
+      ]
+    }
+  ]
+}
+
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Timetracker</h1>
+      <TimeAdd data={data} />
     </div>
   );
 }

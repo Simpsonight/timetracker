@@ -1,57 +1,27 @@
+import React, {useState} from 'react';
 import TimeAdd from "./components/TimeAdd/TimeAdd";
-
-const data = {
-  customers: [
-    {
-      id: 1,
-      customer: 'Kunde 1',
-      jobs: [
-        {
-          id: 1,
-          name: 'Kunde 1 - Job 1'
-        },
-        {
-          id: 2,
-          name: 'Kunde 1 - Job 2'
-        }
-      ]
-    },
-    {
-      id: 2,
-      customer: 'Kunde 2',
-      jobs: [
-        {
-          id: 1,
-          name: 'Kunde 2 - Job 1'
-        },
-        {
-          id: 2,
-          name: 'Kunde 2 - Job 2'
-        }
-      ]
-    },
-    {
-      id: 3,
-      customer: 'Kunde 3',
-      jobs: [
-        {
-          id: 1,
-          name: 'Kunde 3 - Job 1'
-        },
-        {
-          id: 2,
-          name: 'Kunde 3 - Job 2'
-        }
-      ]
-    }
-  ]
-}
+import DataList from './components/DataList/DataList';
+import { v4 as uuidv4 } from 'uuid';
+import customersData from './__mocks/customersData'
+import workingHoursData from './__mocks/workingHoursData';
 
 const App = () => {
+  const [workingHours, setWorkingHours] = useState(workingHoursData);
+
+  const updateWorkingHours = (newEntry) => {
+    setWorkingHours(prevEntries => {
+      const updatedEntries = [...prevEntries];
+      updatedEntries.unshift({...newEntry, id: uuidv4() } );
+      return updatedEntries;
+    });
+  }
+
   return (
     <div className="App">
       <h1>Timetracker</h1>
-      <TimeAdd data={data} />
+      <TimeAdd onNewWorkingTimeEntry={updateWorkingHours} data={customersData} />
+      <h2>Data List - All Entries</h2>
+      <DataList data={workingHours} />
     </div>
   );
 }

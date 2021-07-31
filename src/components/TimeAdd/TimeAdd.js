@@ -1,12 +1,16 @@
 import React, { useState, useRef } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import {
+  makeStyles, 
+  Grid,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  TextField,
+  InputAdornment,
+  Button,
+} from "@material-ui/core";
+import SaveIcon from "@material-ui/icons/Save";
 import DatePicker from "../Ui/DatePicker";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,41 +26,59 @@ const TimeAdd = (props) => {
   const classes = useStyles();
   const [selectedCustomerId, setSelectedCustomerId] = useState("");
   const [selectedJobId, setSelectedJobId] = useState("");
+  const [selectedTaskId, setSelectedTaskId] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const hoursRef = useRef();
   const minutesRef = useRef();
   const descRef = useRef();
+  const formRef = useRef();
 
   const addEntryHandler = (event) => {
     event.preventDefault();
 
-    const workingData = {
+    const workingTimeData = {
       date: selectedDate,
-      customerId: selectedCustomerId,
-      jobId: selectedJobId,
+      customer: selectedCustomerId,
+      job: selectedJobId,
+      task: selectedTaskId,
       timeHours: hoursRef.current.value,
       timeMinutes: minutesRef.current.value,
-      description: descRef.current.value
+      description: descRef.current.value,
     };
 
-    console.log(workingData);
+    props.onNewWorkingTimeEntry(workingTimeData);
+    formRef.current.reset();
+    clearingStates();
   };
 
   const handleCustomerChange = (event) => {
     setSelectedCustomerId(event.target.value);
     setSelectedJobId("");
+    setSelectedTaskId("");
   };
 
   const handleJobChange = (event) => {
     setSelectedJobId(event.target.value);
+    setSelectedTaskId("");
+  };
+
+  const handleTaskChange = (event) => {
+    setSelectedTaskId(event.target.value);
   };
 
   const handleDateChange = (updatedDate) => {
     setSelectedDate(updatedDate);
   };
 
+  const clearingStates = () => {
+    setSelectedDate(new Date());
+    setSelectedCustomerId("");
+    setSelectedJobId("");
+    setSelectedTaskId("");
+  };
+
   return (
-    <form onSubmit={addEntryHandler}>
+    <form ref={formRef} onSubmit={addEntryHandler}>
       <Grid container justifyContent="space-around">
         <FormControl className={classes.formControl}>
           <DatePicker
@@ -98,7 +120,7 @@ const TimeAdd = (props) => {
           }}
         />
         <FormControl className={classes.formControl}>
-          <InputLabel shrink="true" id="customer-label">
+          <InputLabel shrink id="customer-label">
             Kunde
           </InputLabel>
           <Select
@@ -108,8 +130,8 @@ const TimeAdd = (props) => {
             onChange={handleCustomerChange}
           >
             {props.data.customers.map((item) => (
-              <MenuItem key={item.id} value={item.id}>
-                {item.customer}
+              <MenuItem key={item.id} value={item.name}>
+                {item.name}
               </MenuItem>
             ))}
           </Select>
@@ -119,7 +141,7 @@ const TimeAdd = (props) => {
           className={classes.formControl}
           disabled={!selectedCustomerId}
         >
-          <InputLabel shrink="true" id="job-label">
+          <InputLabel shrink id="job-label">
             Job
           </InputLabel>
           <Select
@@ -130,13 +152,42 @@ const TimeAdd = (props) => {
           >
             {selectedCustomerId &&
               props.data.customers
-                .filter((item) => item.id === selectedCustomerId)
+                .filter((customer) => customer.name === selectedCustomerId)
                 .map((item) =>
                   item.jobs.map((job) => (
-                    <MenuItem key={job.id} value={job.id}>
+                    <MenuItem key={job.id} value={job.name}>
                       {job.name}
                     </MenuItem>
                   ))
+                )}
+          </Select>
+        </FormControl>
+        <FormControl
+          className={classes.formControl}
+          disabled={!selectedCustomerId || !selectedJobId}
+        >
+          <InputLabel shrink id="job-label">
+            Aufgabe
+          </InputLabel>
+          <Select
+            labelId="task-label"
+            id="task-label"
+            value={selectedTaskId}
+            onChange={handleTaskChange}
+          >
+            {selectedJobId &&
+              props.data.customers
+                .filter((customer) => customer.name === selectedCustomerId)
+                .map((item) =>
+                  item.jobs
+                    .filter((job) => job.name === selectedJobId)
+                    .map((item) =>
+                      item.tasks.map((task) => (
+                        <MenuItem key={task.id} value={task.name}>
+                          {task.name}
+                        </MenuItem>
+                      ))
+                    )
                 )}
           </Select>
         </FormControl>
@@ -149,7 +200,16 @@ const TimeAdd = (props) => {
           }}
         />
       </Grid>
-      <button type="submit">Add</button>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        size="large"
+        className={classes.button}
+        startIcon={<SaveIcon />}
+      >
+        Save
+      </Button>
     </form>
   );
 };

@@ -1,7 +1,7 @@
 const workingHoursData = [
   {
     id: 123456,
-    date: "Sat Jul 31 2021 12:42:46 GMT+0200 (Mitteleuropäische Sommerzeit)",
+    date: "Sun, 01 Aug 2021 14:56:00 GMT",
     customer: 'Kunde 1',
     job: 'Kunde 1 - Job 1',
     task: 'Aufgabe 1',
@@ -11,7 +11,7 @@ const workingHoursData = [
   },
   {
     id: 123457,
-    date: "Fri Jul 30 2021 12:42:46 GMT+0200 (Mitteleuropäische Sommerzeit)",
+    date: "Thu, 03 Dec 2020 15:56:00 GMT",
     customer: 'Kunde 2',
     job: 'Kunde 2 - Job 2',
     task: 'Aufgabe 2',

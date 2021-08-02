@@ -51,7 +51,7 @@ const TimekeepingForm = (props) => {
 
     if (validate()) {
       const workingTimeData = {
-        date: values.date,
+        date: values.date.toUTCString(),
         customer: values.customer,
         job: values.job,
         task: values.task,
@@ -98,6 +98,7 @@ const TimekeepingForm = (props) => {
         ...prevValues,
         date: updatedDate,
       };
+      console.log(updatedDate);
       return newValues;
     });
   };

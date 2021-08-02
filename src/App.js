@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { makeStyles } from "@material-ui/core";
 import TimekeepingForm from "./components/Timekeeping/TimekeepingForm";
+import BookingEntries from "./components/BookingEntries/BookingEntries";
 import DataList from "./components/DataList/DataList";
-import { v4 as uuidv4 } from "uuid";
 import customersData from "./__mocks/customersData";
 import workingHoursData from "./__mocks/workingHoursData";
 
@@ -38,6 +39,8 @@ const App = () => {
         onNewWorkingTimeEntry={updateWorkingHours}
         data={customersData}
       />
+      <h2>Card List</h2>
+      <BookingEntries data={workingHours} />
       <h2>Data List - All Entries</h2>
       <DataList data={workingHours} />
     </div>

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import {
-  makeStyles, 
+  makeStyles,
   Grid,
   InputLabel,
   MenuItem,
@@ -22,73 +22,108 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const defaultValues = {
+  date: new Date(),
+  hours: "",
+  minutes: "",
+  customer: "",
+  job: "",
+  task: "",
+  description: "",
+};
+
 const TimeAdd = (props) => {
   const classes = useStyles();
-  const [selectedCustomerId, setSelectedCustomerId] = useState("");
-  const [selectedJobId, setSelectedJobId] = useState("");
-  const [selectedTaskId, setSelectedTaskId] = useState("");
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const hoursRef = useRef();
-  const minutesRef = useRef();
-  const descRef = useRef();
+  const [values, setValues] = useState(defaultValues);
+  const [errors, setErrors] = useState({});
   const formRef = useRef();
 
-  const addEntryHandler = (event) => {
+  const validate = () => {
+    let temp = {};
+    temp.hours = values.hours ? "" : "This field is required";
+    temp.minutes = values.minutes ? "" : "This field is required";
+    temp.customer =
+      values.customer.length !== 0 ? "" : "This field is required";
+    temp.job = values.job.length !== 0 ? "" : "This field is required";
+    temp.task = values.task.length !== 0 ? "" : "This field is required";
+
+    setErrors({ ...temp });
+
+    // returns a boolean => true if all keys have the given value
+    return Object.values(temp).every((x) => x === "");
+  };
+
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    const workingTimeData = {
-      date: selectedDate,
-      customer: selectedCustomerId,
-      job: selectedJobId,
-      task: selectedTaskId,
-      timeHours: hoursRef.current.value,
-      timeMinutes: minutesRef.current.value,
-      description: descRef.current.value,
-    };
+    if (validate()) {
+      const workingTimeData = {
+        date: values.date,
+        customer: values.customer,
+        job: values.job,
+        task: values.task,
+        timeHours: values.hours,
+        timeMinutes: values.minutes,
+        description: values.description,
+      };
 
-    props.onNewWorkingTimeEntry(workingTimeData);
-    formRef.current.reset();
-    clearingStates();
+      props.onNewWorkingTimeEntry(workingTimeData);
+      // clear values
+      formRef.current.reset();
+      setValues(defaultValues);
+    }
   };
 
-  const handleCustomerChange = (event) => {
-    setSelectedCustomerId(event.target.value);
-    setSelectedJobId("");
-    setSelectedTaskId("");
-  };
+  const handleValueChange = (event) => {
+    setValues((prevValues) => {
+      const key = event.target.name;
+      let newValues = {
+        ...prevValues,
+        [key]: event.target.value,
+      };
 
-  const handleJobChange = (event) => {
-    setSelectedJobId(event.target.value);
-    setSelectedTaskId("");
-  };
-
-  const handleTaskChange = (event) => {
-    setSelectedTaskId(event.target.value);
+      if (key === "customer") {
+        newValues = {
+          ...newValues,
+          job: "",
+          task: "",
+        };
+      }
+      if (key === "job") {
+        newValues = {
+          ...newValues,
+          task: "",
+        };
+      }
+      return newValues;
+    });
   };
 
   const handleDateChange = (updatedDate) => {
-    setSelectedDate(updatedDate);
-  };
-
-  const clearingStates = () => {
-    setSelectedDate(new Date());
-    setSelectedCustomerId("");
-    setSelectedJobId("");
-    setSelectedTaskId("");
+    setValues((prevValues) => {
+      const newValues = {
+        ...prevValues,
+        date: updatedDate,
+      };
+      return newValues;
+    });
   };
 
   return (
-    <form ref={formRef} onSubmit={addEntryHandler}>
+    <form ref={formRef} onSubmit={handleSubmit}>
       <Grid container justifyContent="space-around">
         <FormControl className={classes.formControl}>
           <DatePicker
+            name="date"
             onUpdateDate={handleDateChange}
-            defaultDate={selectedDate}
+            defaultDate={values.date}
             label="Datum"
           />
         </FormControl>
         <TextField
-          inputRef={hoursRef}
+          name="hours"
+          value={values.hours}
+          onChange={handleValueChange}
           label="Stunden"
           type="number"
           InputLabelProps={{
@@ -102,9 +137,12 @@ const TimeAdd = (props) => {
             max: 24,
             step: 1,
           }}
+          {...(errors.hours && { error: true })}
         />
         <TextField
-          inputRef={minutesRef}
+          name="minutes"
+          value={values.minutes}
+          onChange={handleValueChange}
           label="Minuten"
           type="number"
           InputLabelProps={{
@@ -118,16 +156,23 @@ const TimeAdd = (props) => {
             max: 45,
             step: 15,
           }}
+          {...(errors.minutes && { error: true })}
         />
         <FormControl className={classes.formControl}>
-          <InputLabel shrink id="customer-label">
+          <InputLabel
+            shrink
+            id="customer-label"
+            {...(errors.customer && { error: true })}
+          >
             Kunde
           </InputLabel>
           <Select
+            name="customer"
             labelId="customer-label"
             id="customer-label"
-            value={selectedCustomerId}
-            onChange={handleCustomerChange}
+            value={values.customer}
+            onChange={handleValueChange}
+            {...(errors.customer && { error: true })}
           >
             {props.data.customers.map((item) => (
               <MenuItem key={item.id} value={item.name}>
@@ -139,20 +184,26 @@ const TimeAdd = (props) => {
 
         <FormControl
           className={classes.formControl}
-          disabled={!selectedCustomerId}
+          disabled={!values.customer}
         >
-          <InputLabel shrink id="job-label">
+          <InputLabel
+            shrink
+            id="job-label"
+            {...(errors.job && { error: true })}
+          >
             Job
           </InputLabel>
           <Select
+            name="job"
             labelId="job-label"
             id="job-label"
-            value={selectedJobId}
-            onChange={handleJobChange}
+            value={values.job}
+            onChange={handleValueChange}
+            {...(errors.job && { error: true })}
           >
-            {selectedCustomerId &&
+            {values.customer &&
               props.data.customers
-                .filter((customer) => customer.name === selectedCustomerId)
+                .filter((customer) => customer.name === values.customer)
                 .map((item) =>
                   item.jobs.map((job) => (
                     <MenuItem key={job.id} value={job.name}>
@@ -164,23 +215,29 @@ const TimeAdd = (props) => {
         </FormControl>
         <FormControl
           className={classes.formControl}
-          disabled={!selectedCustomerId || !selectedJobId}
+          disabled={!values.customer || !values.job}
         >
-          <InputLabel shrink id="job-label">
+          <InputLabel
+            shrink
+            id="job-label"
+            {...(errors.task && { error: true })}
+          >
             Aufgabe
           </InputLabel>
           <Select
+            name="task"
             labelId="task-label"
             id="task-label"
-            value={selectedTaskId}
-            onChange={handleTaskChange}
+            value={values.task}
+            onChange={handleValueChange}
+            {...(errors.task && { error: true })}
           >
-            {selectedJobId &&
+            {values.job &&
               props.data.customers
-                .filter((customer) => customer.name === selectedCustomerId)
+                .filter((customer) => customer.name === values.customer)
                 .map((item) =>
                   item.jobs
-                    .filter((job) => job.name === selectedJobId)
+                    .filter((job) => job.name === values.job)
                     .map((item) =>
                       item.tasks.map((task) => (
                         <MenuItem key={task.id} value={task.name}>
@@ -192,8 +249,10 @@ const TimeAdd = (props) => {
           </Select>
         </FormControl>
         <TextField
-          inputRef={descRef}
+          name="description"
           label="Beschreibung"
+          value={values.description}
+          onChange={handleValueChange}
           multiline
           InputLabelProps={{
             shrink: true,

@@ -25,6 +25,7 @@ const DatePicker = (props) => {
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
         className={classes.multiFormControl}
+        name={props.name}
         autoOk
         variant="inline"
         format="dd/MM/yyyy"

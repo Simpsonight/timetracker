@@ -28,7 +28,7 @@ const DatePicker = (props) => {
         name={props.name}
         autoOk
         variant="inline"
-        format="dd/MM/yyyy"
+        format="dd.MM.yyyy"
         margin="normal"
         id="date-picker-inline"
         label={props.label}

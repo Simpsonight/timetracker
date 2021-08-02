@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import {
-  makeStyles,
   Grid,
   InputLabel,
   MenuItem,
@@ -9,33 +8,12 @@ import {
   TextField,
   InputAdornment,
   Button,
-  Paper,
 } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import DatePicker from "../Ui/DatePicker";
+import Box from "../Ui/Box";
+import useStyles from './styles'
 
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3),
-    },
-  },
-  button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1),
-  },
-}));
 
 const defaultValues = {
   date: new Date(),
@@ -125,7 +103,7 @@ const TimekeepingForm = (props) => {
   };
 
   return (
-    <Paper className={classes.paper}>
+    <Box>
       <form ref={formRef} onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
@@ -310,7 +288,7 @@ const TimekeepingForm = (props) => {
           </Grid>
         </Grid>
       </form>
-    </Paper>
+    </Box>
   );
 };
 

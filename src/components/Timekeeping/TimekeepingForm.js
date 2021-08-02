@@ -32,7 +32,7 @@ const defaultValues = {
   description: "",
 };
 
-const TimeAdd = (props) => {
+const TimekeepingForm = (props) => {
   const classes = useStyles();
   const [values, setValues] = useState(defaultValues);
   const [errors, setErrors] = useState({});
@@ -49,7 +49,7 @@ const TimeAdd = (props) => {
 
     setErrors({ ...temp });
 
-    // returns a boolean => true if all keys have the given value
+    // returns a boolean => true if all values match the given string
     return Object.values(temp).every((x) => x === "");
   };
 
@@ -273,4 +273,4 @@ const TimeAdd = (props) => {
   );
 };
 
-export default TimeAdd;
+export default TimekeepingForm;

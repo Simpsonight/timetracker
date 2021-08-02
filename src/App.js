@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import TimeAdd from "./components/TimeAdd/TimeAdd";
+import TimekeepingForm from "./components/Timekeeping/TimekeepingForm";
 import DataList from './components/DataList/DataList';
 import { v4 as uuidv4 } from 'uuid';
 import customersData from './__mocks/customersData'
@@ -19,7 +19,7 @@ const App = () => {
   return (
     <div className="App">
       <h1>Timetracker</h1>
-      <TimeAdd onNewWorkingTimeEntry={updateWorkingHours} data={customersData} />
+      <TimekeepingForm onNewWorkingTimeEntry={updateWorkingHours} data={customersData} />
       <h2>Data List - All Entries</h2>
       <DataList data={workingHours} />
     </div>

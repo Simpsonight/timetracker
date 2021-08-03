@@ -12,8 +12,7 @@ import {
 import SaveIcon from "@material-ui/icons/Save";
 import DatePicker from "../Ui/DatePicker";
 import Box from "../Ui/Box";
-import useStyles from './styles'
-
+import useStyles from "./styles";
 
 const defaultValues = {
   date: new Date(),
@@ -25,10 +24,7 @@ const defaultValues = {
   description: "",
 };
 
-const NewTimeEntry = ({
-  data: { clients },
-  onNewWorkingTimeEntry
-}) => {
+const NewTimeEntry = ({ data: { clients }, onNewWorkingTimeEntry }) => {
   const classes = useStyles();
   const [values, setValues] = useState(defaultValues);
   const [errors, setErrors] = useState({});
@@ -38,8 +34,7 @@ const NewTimeEntry = ({
     let temp = {};
     temp.hours = values.hours ? "" : "This field is required";
     temp.minutes = values.minutes ? "" : "This field is required";
-    temp.client =
-      values.client.length !== 0 ? "" : "This field is required";
+    temp.client = values.client.length !== 0 ? "" : "This field is required";
     temp.project = values.project.length !== 0 ? "" : "This field is required";
     temp.task = values.task.length !== 0 ? "" : "This field is required";
 
@@ -47,6 +42,11 @@ const NewTimeEntry = ({
 
     // returns a boolean => true if all values match the given string
     return Object.values(temp).every((x) => x === "");
+  };
+
+  const formatTime = (hh, mm) => {
+    let time = `${hh < 10 ? "0" + hh : hh}:${mm}`;
+    return time;
   };
 
   const handleSubmit = (event) => {
@@ -58,8 +58,7 @@ const NewTimeEntry = ({
         client: values.client,
         project: values.project,
         task: values.task,
-        timeHours: values.hours,
-        timeMinutes: values.minutes,
+        time: formatTime(values.hours, values.minutes),
         description: values.description,
       };
 

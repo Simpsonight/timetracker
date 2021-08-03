@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EntryItem = ({
-  entryData: { date, task, project, client, description, timeHours, timeMinutes },
+  entryData: { date, task, project, client, description, time },
 }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
@@ -47,7 +47,7 @@ const EntryItem = ({
               {client} <span>|</span> {project}
             </p>
             <div className={styles["booking-item__price"]}>
-              {timeHours}:{timeMinutes}
+              {time}
             </div>
           </div>
         </CardContent>

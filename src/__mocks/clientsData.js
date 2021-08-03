@@ -1,12 +1,12 @@
-const customersData = {
-  customers: [
+const clientsData = {
+  clients: [
     {
       id: 1,
       name: "Kunde 1",
-      jobs: [
+      projects: [
         {
           id: 1,
-          name: "Kunde 1 - Job 1",
+          name: "Kunde 1 - project 1",
           tasks: [
               {
                 id: 1,
@@ -20,7 +20,7 @@ const customersData = {
         },
         {
           id: 2,
-          name: "Kunde 1 - Job 2",
+          name: "Kunde 1 - project 2",
           tasks: [
               {
                 id: 1,
@@ -33,10 +33,10 @@ const customersData = {
     {
       id: 2,
       name: "Kunde 2",
-      jobs: [
+      projects: [
         {
           id: 1,
-          name: "Kunde 2 - Job 1",
+          name: "Kunde 2 - project 1",
           tasks: [
               {
                 id: 1,
@@ -50,7 +50,7 @@ const customersData = {
         },
         {
           id: 2,
-          name: "Kunde 2 - Job 2",
+          name: "Kunde 2 - project 2",
           tasks: [
               {
                 id: 1,
@@ -67,10 +67,10 @@ const customersData = {
     {
       id: 3,
       name: "Kunde 3",
-      jobs: [
+      projects: [
         {
           id: 1,
-          name: "Kunde 3 - Job 1",
+          name: "Kunde 3 - project 1",
           tasks: [
               {
                 id: 1,
@@ -84,7 +84,7 @@ const customersData = {
         },
         {
           id: 2,
-          name: "Kunde 3 - Job 2",
+          name: "Kunde 3 - project 2",
           tasks: [
               {
                 id: 1,
@@ -101,4 +101,4 @@ const customersData = {
   ],
 };
 
-export default customersData;
+export default clientsData;

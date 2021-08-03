@@ -12,26 +12,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DatePicker = (props) => {
+const DatePicker = ({ onUpdateDate, defaultDate, name, label }) => {
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState(props.defaultDate);
+  const [selectedDate, setSelectedDate] = useState(defaultDate);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    props.onUpdateDate(date);
+    onUpdateDate(date);
   };
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
         className={classes.multiFormControl}
-        name={props.name}
+        name={name}
         autoOk
         variant="inline"
         format="dd.MM.yyyy"
         margin="normal"
         id="date-picker-inline"
-        label={props.label}
+        label={label}
         value={selectedDate}
         onChange={handleDateChange}
         KeyboardButtonProps={{

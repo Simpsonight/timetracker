@@ -1,4 +1,4 @@
-.booking-date {
+.entry-date {
   display: flex;
   flex-direction: column;
   width: 5.5rem;
@@ -11,16 +11,16 @@
   justify-content: center;
 }
 
-.booking-date__month {
+.entry-date__month {
   font-size: 0.75rem;
   font-weight: bold;
 }
 
-.booking-date__year {
+.entry-date__year {
   font-size: 0.75rem;
 }
 
-.booking-date__day {
+.entry-date__day {
   font-size: 1.5rem;
   font-weight: bold;
 }

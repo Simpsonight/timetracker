@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import clsx from 'clsx';
+import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Card,
@@ -7,11 +7,11 @@ import {
   CardActions,
   Collapse,
   IconButton,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import BookingDate from "../BookingDate/BookingDate";
-import styles from "./BookingItem.module.css";
+import BookingDate from "../EntryDate/EntryDate";
+import styles from "./EntryItem.module.css";
 
 const useStyles = makeStyles((theme) => ({
   expand: {
@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BookingItem = (props) => {
+const EntryItem = ({
+  entryData: { date, task, project, client, description, timeHours, timeMinutes },
+}) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-
-  const { date, task, job, customer, description, timeHours, timeMinutes } = props.data;
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -44,7 +44,7 @@ const BookingItem = (props) => {
           <div className={styles["booking-item__description"]}>
             <h2>{task}</h2>
             <p>
-              {customer} <span>|</span> {job}
+              {client} <span>|</span> {project}
             </p>
             <div className={styles["booking-item__price"]}>
               {timeHours}:{timeMinutes}
@@ -64,15 +64,13 @@ const BookingItem = (props) => {
           </IconButton>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>
-            {description}
-          </Typography>
+          <CardContent>
+            <Typography paragraph>{description}</Typography>
           </CardContent>
-          </Collapse>
+        </Collapse>
       </Card>
     </>
   );
 };
 
-export default BookingItem;
+export default EntryItem;

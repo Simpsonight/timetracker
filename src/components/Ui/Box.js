@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Box = (props) => {
+const Box = ({ children }) => {
   const classes = useStyles();
 
-  return <Paper className={classes.paper}>{props.children}</Paper>
+  return <Paper className={classes.paper}>{children}</Paper>;
 };
 
 export default Box;

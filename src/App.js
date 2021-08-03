@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { makeStyles } from "@material-ui/core";
-import TimekeepingForm from "./components/Timekeeping/TimekeepingForm";
-import BookingEntries from "./components/BookingEntries/BookingEntries";
+import NewTimeEntry from "./components/NewTimeEntry/NewTimeEntry";
+import Entries from "./components/Entries/Entries";
 import DataList from "./components/DataList/DataList";
-import customersData from "./__mocks/customersData";
-import workingHoursData from "./__mocks/workingHoursData";
+import clientsData from "./__mocks/clientsData";
+import workingTimeData from "./__mocks/workingTimeData";
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -22,10 +22,10 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  const [workingHours, setWorkingHours] = useState(workingHoursData);
+  const [workingTime, setWorkingTime] = useState(workingTimeData);
 
-  const updateWorkingHours = (newEntry) => {
-    setWorkingHours((prevEntries) => {
+  const updateWorkingTime = (newEntry) => {
+    setWorkingTime((prevEntries) => {
       const updatedEntries = [...prevEntries];
       updatedEntries.unshift({ ...newEntry, id: uuidv4() });
       return updatedEntries;
@@ -35,14 +35,16 @@ const App = () => {
   return (
     <div className={classes.layout}>
       <h1>Timetracker</h1>
-      <TimekeepingForm
-        onNewWorkingTimeEntry={updateWorkingHours}
-        data={customersData}
+      <NewTimeEntry
+        onNewWorkingTimeEntry={updateWorkingTime}
+        data={clientsData}
       />
+
       <h2>Card List</h2>
-      <BookingEntries data={workingHours} />
+      <Entries entries={workingTime} />
+      
       <h2>Data List - All Entries</h2>
-      <DataList data={workingHours} />
+      <DataList entries={workingTime} />
     </div>
   );
 };

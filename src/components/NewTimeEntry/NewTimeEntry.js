@@ -19,13 +19,16 @@ const defaultValues = {
   date: new Date(),
   hours: "",
   minutes: "",
-  customer: "",
-  job: "",
+  client: "",
+  project: "",
   task: "",
   description: "",
 };
 
-const TimekeepingForm = (props) => {
+const NewTimeEntry = ({
+  data: { clients },
+  onNewWorkingTimeEntry
+}) => {
   const classes = useStyles();
   const [values, setValues] = useState(defaultValues);
   const [errors, setErrors] = useState({});
@@ -35,9 +38,9 @@ const TimekeepingForm = (props) => {
     let temp = {};
     temp.hours = values.hours ? "" : "This field is required";
     temp.minutes = values.minutes ? "" : "This field is required";
-    temp.customer =
-      values.customer.length !== 0 ? "" : "This field is required";
-    temp.job = values.job.length !== 0 ? "" : "This field is required";
+    temp.client =
+      values.client.length !== 0 ? "" : "This field is required";
+    temp.project = values.project.length !== 0 ? "" : "This field is required";
     temp.task = values.task.length !== 0 ? "" : "This field is required";
 
     setErrors({ ...temp });
@@ -52,15 +55,15 @@ const TimekeepingForm = (props) => {
     if (validate()) {
       const workingTimeData = {
         date: values.date.toUTCString(),
-        customer: values.customer,
-        job: values.job,
+        client: values.client,
+        project: values.project,
         task: values.task,
         timeHours: values.hours,
         timeMinutes: values.minutes,
         description: values.description,
       };
 
-      props.onNewWorkingTimeEntry(workingTimeData);
+      onNewWorkingTimeEntry(workingTimeData);
       // clear values
       formRef.current.reset();
       setValues(defaultValues);
@@ -75,14 +78,14 @@ const TimekeepingForm = (props) => {
         [key]: event.target.value,
       };
 
-      if (key === "customer") {
+      if (key === "client") {
         newValues = {
           ...newValues,
-          job: "",
+          project: "",
           task: "",
         };
       }
-      if (key === "job") {
+      if (key === "project") {
         newValues = {
           ...newValues,
           task: "",
@@ -169,20 +172,20 @@ const TimekeepingForm = (props) => {
             <FormControl className={classes.formControl} fullWidth>
               <InputLabel
                 shrink
-                id="customer-label"
-                {...(errors.customer && { error: true })}
+                id="client-label"
+                {...(errors.client && { error: true })}
               >
                 Kunde
               </InputLabel>
               <Select
-                name="customer"
-                labelId="customer-label"
-                id="customer-label"
-                value={values.customer}
+                name="client"
+                labelId="client-label"
+                id="client-label"
+                value={values.client}
                 onChange={handleValueChange}
-                {...(errors.customer && { error: true })}
+                {...(errors.client && { error: true })}
               >
-                {props.data.customers.map((item) => (
+                {clients.map((item) => (
                   <MenuItem key={item.id} value={item.name}>
                     {item.name}
                   </MenuItem>
@@ -193,31 +196,31 @@ const TimekeepingForm = (props) => {
           <Grid item xs={12} sm={4}>
             <FormControl
               className={classes.formControl}
-              disabled={!values.customer}
+              disabled={!values.client}
               fullWidth
             >
               <InputLabel
                 shrink
-                id="job-label"
-                {...(errors.job && { error: true })}
+                id="project-label"
+                {...(errors.project && { error: true })}
               >
-                Job
+                Projekt
               </InputLabel>
               <Select
-                name="job"
-                labelId="job-label"
-                id="job-label"
-                value={values.job}
+                name="project"
+                labelId="project-label"
+                id="project-label"
+                value={values.project}
                 onChange={handleValueChange}
-                {...(errors.job && { error: true })}
+                {...(errors.project && { error: true })}
               >
-                {values.customer &&
-                  props.data.customers
-                    .filter((customer) => customer.name === values.customer)
+                {values.client &&
+                  clients
+                    .filter((client) => client.name === values.client)
                     .map((item) =>
-                      item.jobs.map((job) => (
-                        <MenuItem key={job.id} value={job.name}>
-                          {job.name}
+                      item.projects.map((project) => (
+                        <MenuItem key={project.id} value={project.name}>
+                          {project.name}
                         </MenuItem>
                       ))
                     )}
@@ -227,12 +230,12 @@ const TimekeepingForm = (props) => {
           <Grid item xs={12} sm={4}>
             <FormControl
               className={classes.formControl}
-              disabled={!values.customer || !values.job}
+              disabled={!values.client || !values.project}
               fullWidth
             >
               <InputLabel
                 shrink
-                id="job-label"
+                id="project-label"
                 {...(errors.task && { error: true })}
               >
                 Aufgabe
@@ -245,12 +248,12 @@ const TimekeepingForm = (props) => {
                 onChange={handleValueChange}
                 {...(errors.task && { error: true })}
               >
-                {values.job &&
-                  props.data.customers
-                    .filter((customer) => customer.name === values.customer)
+                {values.project &&
+                  clients
+                    .filter((client) => client.name === values.client)
                     .map((item) =>
-                      item.jobs
-                        .filter((job) => job.name === values.job)
+                      item.projects
+                        .filter((project) => project.name === values.project)
                         .map((item) =>
                           item.tasks.map((task) => (
                             <MenuItem key={task.id} value={task.name}>
@@ -293,4 +296,4 @@ const TimekeepingForm = (props) => {
   );
 };
 
-export default TimekeepingForm;
+export default NewTimeEntry;

@@ -14,13 +14,13 @@ const columns = [
     // },
   },
   {
-    field: "customer",
+    field: "client",
     headerName: "Kunde",
     width: 150,
   },
   {
-    field: "job",
-    headerName: "Job",
+    field: "project",
+    headerName: "project",
     width: 150,
   },
   {
@@ -43,15 +43,14 @@ const columns = [
   },
 ];
 
-const DataList = (props) => {
+const DataList = ({entries}) => {
   let content = <p>Keine Einträge vorhanden</p>;
 
-  if (props.data.length > 0) {
-    console.log(props.data);
+  if (entries.length > 0) {
     content = (
       <div style={{ height: 400, width: "100%" }}>
         <DataGrid
-          rows={props.data}
+          rows={entries}
           columns={columns}
           pageSize={5}
           checkboxSelection

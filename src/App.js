@@ -36,7 +36,7 @@ const App = () => {
     <div className={classes.layout}>
       <h1>Timetracker</h1>
       <NewTimeEntry
-        onNewWorkingTimeEntry={updateWorkingTime}
+        onNewEntry={updateWorkingTime}
         data={clientsData}
       />
 

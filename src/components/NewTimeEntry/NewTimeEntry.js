@@ -24,7 +24,7 @@ const defaultValues = {
   description: "",
 };
 
-const NewTimeEntry = ({ data: { clients }, onNewWorkingTimeEntry }) => {
+const NewTimeEntry = ({ data: { clients }, onNewEntry }) => {
   const classes = useStyles();
   const [values, setValues] = useState(defaultValues);
   const [errors, setErrors] = useState({});
@@ -53,7 +53,7 @@ const NewTimeEntry = ({ data: { clients }, onNewWorkingTimeEntry }) => {
     event.preventDefault();
 
     if (validate()) {
-      const workingTimeData = {
+      const newEntryData = {
         date: values.date.toUTCString(),
         client: values.client,
         project: values.project,
@@ -62,7 +62,7 @@ const NewTimeEntry = ({ data: { clients }, onNewWorkingTimeEntry }) => {
         description: values.description,
       };
 
-      onNewWorkingTimeEntry(workingTimeData);
+      onNewEntry(newEntryData);
       // clear values
       formRef.current.reset();
       setValues(defaultValues);

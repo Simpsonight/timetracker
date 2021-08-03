@@ -15,10 +15,6 @@ const columns = [
   {
     field: "time",
     headerName: "Zeit",
-    valueGetter: (params) =>
-      `${params.getValue(params.id, "timeHours") || ""} : ${
-        params.getValue(params.id, "timeMinutes") || ""
-      }`,
   },
   {
     field: "client",

@@ -5,7 +5,7 @@ const workingTimeData = [
     client: 'Kunde 1',
     project: 'Kunde 1 - project 1',
     task: 'Aufgabe 1',
-    time: '04:15',
+    time: '04:30',
     description: "task Desc default 1",
   },
   {
@@ -15,6 +15,15 @@ const workingTimeData = [
     project: 'Kunde 2 - project 2',
     task: 'Aufgabe 2',
     time: '10:45',
+    description: "Task Desc default 2",
+  },
+  {
+    id: 123458,
+    date: "Thu, 03 Dec 2020 15:56:00 GMT",
+    client: 'Kunde 2',
+    project: 'Kunde 2 - project 2',
+    task: 'Aufgabe 2',
+    time: '12:30',
     description: "Task Desc default 2",
   },
 ];

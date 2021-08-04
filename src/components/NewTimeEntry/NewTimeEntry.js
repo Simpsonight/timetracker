@@ -19,13 +19,20 @@ const defaultValues = {
   hours: "",
   minutes: "",
   client: "",
+  clientId: "",
   project: "",
+  projectId: "",
   task: "",
+  taskId: "",
   description: "",
 };
 
 const NewTimeEntry = ({ data: { clients }, onNewEntry }) => {
   const classes = useStyles();
+  const [clientSelected, setClientSelected] = useState({});
+  const [projectSelected, setProjectSelected] = useState({});
+
+  
   const [values, setValues] = useState(defaultValues);
   const [errors, setErrors] = useState({});
   const formRef = useRef();
@@ -45,7 +52,7 @@ const NewTimeEntry = ({ data: { clients }, onNewEntry }) => {
   };
 
   const formatTime = (hh, mm) => {
-    let time = `${hh < 10 ? "0" + hh : hh}:${mm}`;
+    let time = `${hh < 10 ? "0" + hh : hh}:${mm < 10 ? "0" + mm : mm}`;
     return time;
   };
 
@@ -55,14 +62,18 @@ const NewTimeEntry = ({ data: { clients }, onNewEntry }) => {
     if (validate()) {
       const newEntryData = {
         date: values.date.toUTCString(),
+        clientId: values.clientId,
+        projectId: values.projectId,
         client: values.client,
         project: values.project,
         task: values.task,
+        taskId: values.taskId,
         time: formatTime(values.hours, values.minutes),
         description: values.description,
       };
 
       onNewEntry(newEntryData);
+
       // clear values
       formRef.current.reset();
       setValues(defaultValues);
@@ -77,19 +88,60 @@ const NewTimeEntry = ({ data: { clients }, onNewEntry }) => {
         [key]: event.target.value,
       };
 
+      return newValues;
+    });
+  };
+
+  const handleSelectChange = (event) => {
+    setValues((prevValues) => {
+      const key = event.target.name;
+      const value = event.target.value;
+
+      let newValues = {
+        ...prevValues,
+      };
+
       if (key === "client") {
+        const client = clients.find((client) => client.id === value);
+
+        setClientSelected(client);
+
         newValues = {
           ...newValues,
+          [key]: client.name,
+          clientId: value,
           project: "",
           task: "",
         };
       }
+
       if (key === "project") {
+        const project = clientSelected.projects.find(
+          (item) => item.id === value
+        );
+
+        setProjectSelected(project);
+
         newValues = {
           ...newValues,
+          [key]: project.name,
+          projectId: value,
           task: "",
         };
       }
+
+      if (key === "task") {
+        const task = projectSelected.tasks.find(
+          (item) => item.id === value
+        );
+
+        newValues = {
+          ...newValues,
+          [key]: task.name,
+          taskId: value,
+        };
+      }
+      
       return newValues;
     });
   };
@@ -180,12 +232,12 @@ const NewTimeEntry = ({ data: { clients }, onNewEntry }) => {
                 name="client"
                 labelId="client-label"
                 id="client-label"
-                value={values.client}
-                onChange={handleValueChange}
+                value={values.clientId}
+                onChange={handleSelectChange}
                 {...(errors.client && { error: true })}
               >
                 {clients.map((item) => (
-                  <MenuItem key={item.id} value={item.name}>
+                  <MenuItem key={item.id} value={item.id}>
                     {item.name}
                   </MenuItem>
                 ))}
@@ -209,20 +261,16 @@ const NewTimeEntry = ({ data: { clients }, onNewEntry }) => {
                 name="project"
                 labelId="project-label"
                 id="project-label"
-                value={values.project}
-                onChange={handleValueChange}
+                value={values.projectId}
+                onChange={handleSelectChange}
                 {...(errors.project && { error: true })}
               >
                 {values.client &&
-                  clients
-                    .filter((client) => client.name === values.client)
-                    .map((item) =>
-                      item.projects.map((project) => (
-                        <MenuItem key={project.id} value={project.name}>
-                          {project.name}
-                        </MenuItem>
-                      ))
-                    )}
+                  clientSelected.projects.map((project) => (
+                    <MenuItem key={project.id} value={project.id}>
+                      {project.name}
+                    </MenuItem>
+                  ))}
               </Select>
             </FormControl>
           </Grid>
@@ -243,24 +291,16 @@ const NewTimeEntry = ({ data: { clients }, onNewEntry }) => {
                 name="task"
                 labelId="task-label"
                 id="task-label"
-                value={values.task}
-                onChange={handleValueChange}
+                value={values.taskId}
+                onChange={handleSelectChange}
                 {...(errors.task && { error: true })}
               >
                 {values.project &&
-                  clients
-                    .filter((client) => client.name === values.client)
-                    .map((item) =>
-                      item.projects
-                        .filter((project) => project.name === values.project)
-                        .map((item) =>
-                          item.tasks.map((task) => (
-                            <MenuItem key={task.id} value={task.name}>
-                              {task.name}
-                            </MenuItem>
-                          ))
-                        )
-                    )}
+                  projectSelected.tasks.map((task) => (
+                    <MenuItem key={task.id} value={task.id}>
+                      {task.name}
+                    </MenuItem>
+                  ))}
               </Select>
             </FormControl>
           </Grid>

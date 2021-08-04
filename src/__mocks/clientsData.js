@@ -35,7 +35,7 @@ const clientsData = {
       name: "Kunde 2",
       projects: [
         {
-          id: 1,
+          id: 3,
           name: "Kunde 2 - project 1",
           tasks: [
               {
@@ -49,7 +49,7 @@ const clientsData = {
           ]
         },
         {
-          id: 2,
+          id: 4,
           name: "Kunde 2 - project 2",
           tasks: [
               {
@@ -69,7 +69,7 @@ const clientsData = {
       name: "Kunde 3",
       projects: [
         {
-          id: 1,
+          id: 5,
           name: "Kunde 3 - project 1",
           tasks: [
               {
@@ -83,7 +83,7 @@ const clientsData = {
           ]
         },
         {
-          id: 2,
+          id: 6,
           name: "Kunde 3 - project 2",
           tasks: [
               {

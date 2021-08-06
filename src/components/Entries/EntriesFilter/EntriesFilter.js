@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   Grid,
   InputLabel,
@@ -41,7 +41,7 @@ const EntriesFilter = ({ selected, onChangeFilter }) => {
 
   useEffect(() => {
     onChangeFilter(filter);
-  }, [filter]);
+  }, [filter, onChangeFilter]);
 
   const individualChangeHandler = (updatedDate) => {
     setFilter({

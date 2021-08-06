@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, Paper } from "@material-ui/core";
+import { makeStyles, Paper as MaterialUiPaper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Box = ({ children }) => {
+const Paper = ({ styles, children }) => {
   const classes = useStyles();
 
-  return <Paper className={classes.paper}>{children}</Paper>;
+  return <MaterialUiPaper className={styles ? styles : classes.paper}>{children}</MaterialUiPaper>;
 };
 
-export default Box;
+export default Paper;

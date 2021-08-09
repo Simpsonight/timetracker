@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer, useEffect, useMemo } from "react";
 import { entryReducer } from "../reducers/entryReducer";
 import initialState from "../__mocks/entriesData";
 
@@ -14,8 +14,12 @@ const EntryContextProvider = (props) => {
     localStorage.setItem("entries", JSON.stringify(entries));
   }, [entries]);
 
+  const contextValue = useMemo(() => {
+    return { entries, dispatch };
+  }, [entries, dispatch]);
+
   return (
-    <EntryContext.Provider value={{ entries, dispatch }}>
+    <EntryContext.Provider value={contextValue}>
       {props.children}
     </EntryContext.Provider>
   );

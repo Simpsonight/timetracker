@@ -1,22 +1,25 @@
-import React, { createContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React, { createContext, useReducer, useEffect, useMemo } from "react";
+import { clientReducer } from "../reducers/clientReducer";
 import initialState from "../__mocks/clientsData";
 
 export const ClientContext = createContext();
 
 const ClientContextProvider = props => {
-  const [clients, setClients] = useState(initialState);
+  const [clients, dispatch] = useReducer(clientReducer, [], () => {
+    const localData = localStorage.getItem("clients");
+    return localData ? JSON.parse(localData) : initialState;
+  });
 
-  const addClient = client => {
-    setClients([...clients, { client, id: uuidv4() }]);
-  };
+  useEffect(() => {
+    localStorage.setItem("clients", JSON.stringify(clients));
+  }, [clients]);
 
-  const removeClient = id => {
-    setClients(clients.filter(client => client.id !== id));
-  };
+  const contextValue = useMemo(() => {
+    return { clients, dispatch };
+  }, [clients, dispatch]);
   
   return (
-    <ClientContext.Provider value={{ clients, addClient, removeClient }}>
+    <ClientContext.Provider value={contextValue}>
       {props.children}
     </ClientContext.Provider>
   );

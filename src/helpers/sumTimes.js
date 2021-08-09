@@ -12,8 +12,8 @@ export const sumDateTimes = (entries) => {
   for (const entry of entries) {
     const time = entry.time.split(":");
     timeObj.add({
-      hours: parseInt(time[0]),
-      minutes: parseInt(time[1]),
+      hours: +time[0],
+      minutes: +time[1],
     });
   }
 
@@ -41,8 +41,8 @@ export const sumHours = (entries) => {
 
   for (const entry of entries) {
     const time = entry.time.split(":");
-    h += parseInt(time[0]);
-    m += parseInt(time[1]);
+    h += +time[0];
+    m += +time[1];
   }
 
   if (m >= 60) {

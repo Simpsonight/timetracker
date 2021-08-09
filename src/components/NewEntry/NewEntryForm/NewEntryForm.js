@@ -1,4 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
+import { ClientContext } from "../../../contexts/ClientContext";
+import { EntryContext } from "../../../contexts/EntryContext";
+import { addEntry } from "../../../reducers/entryReducer";
 import {
   Grid,
   InputLabel,
@@ -26,14 +29,15 @@ const defaultValues = {
   description: "",
 };
 
-const NewEntryForm = ({ clients, onFormSubmit }) => {
+const NewEntryForm = ({ onFormSubmit }) => {
   const classes = useStyles();
   const [clientSelected, setClientSelected] = useState({});
   const [projectSelected, setProjectSelected] = useState({});
-
   const [values, setValues] = useState(defaultValues);
   const [errors, setErrors] = useState({});
   const formRef = useRef();
+  const { clients } = useContext(ClientContext);
+  const { dispatch } = useContext(EntryContext);
 
   const validate = () => {
     let temp = {};
@@ -70,7 +74,8 @@ const NewEntryForm = ({ clients, onFormSubmit }) => {
         description: values.description,
       };
 
-      onFormSubmit(newEntryData);
+      dispatch(addEntry(newEntryData));
+      onFormSubmit();
 
       // clear values
       formRef.current.reset();

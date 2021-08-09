@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { DataGrid } from "@material-ui/data-grid";
+import { EntryContext } from "../../contexts/EntryContext";
 
 const columns = [
   {
@@ -8,8 +9,8 @@ const columns = [
     width: 120,
     valueFormatter: (params) => {
       const date = new Date(`${params.getValue(params.id, "date")}`);
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-      return date.toLocaleString('de-DE', options);
+      const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+      return date.toLocaleString("de-DE", options);
     },
   },
   {
@@ -38,7 +39,8 @@ const columns = [
   },
 ];
 
-const DataList = ({ entries }) => {
+const DataList = () => {
+  const { entries } = useContext(EntryContext);
   let content = <p>Keine Einträge vorhanden</p>;
 
   if (entries.length > 0) {

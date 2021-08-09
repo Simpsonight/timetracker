@@ -5,7 +5,7 @@ import NewEntryForm from "./NewEntryForm/NewEntryForm";
 import Modal from "../Ui/Modal";
 import useStyles from "./styles";
 
-const NewTimeEntry = ({ data: { clients }, onNewEntry }) => {
+const NewEntry = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -15,11 +15,6 @@ const NewTimeEntry = ({ data: { clients }, onNewEntry }) => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const handleSubmit = (data) => {
-    onNewEntry(data);
-    handleClose();
   };
 
   return (
@@ -38,10 +33,10 @@ const NewTimeEntry = ({ data: { clients }, onNewEntry }) => {
       </Grid>
 
       <Modal open={open} onCloseModal={handleClose}>
-        <NewEntryForm clients={clients} onFormSubmit={handleSubmit} />
+        <NewEntryForm onFormSubmit={handleClose} />
       </Modal>
     </>
   );
 };
 
-export default NewTimeEntry;
+export default NewEntry;

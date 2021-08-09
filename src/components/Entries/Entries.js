@@ -19,26 +19,32 @@ const Entries = () => {
     setSelectedFilter(filter);
   };
 
-  const filteredEntries = entries.filter((entry) => {
-    const entryDate = moment(entry.date);
+  const filteredEntries = entries
+    .filter((entry) => {
+      const entryDate = moment(entry.date);
 
-    const currentDate = moment();
-    const FROM_DATE = currentDate.clone().startOf("isoWeek");
-    const TO_DATE = currentDate.clone().endOf("isoWeek");
+      const currentDate = moment();
+      const FROM_DATE = currentDate.clone().startOf("isoWeek");
+      const TO_DATE = currentDate.clone().endOf("isoWeek");
 
-    switch (selectedFilter.type) {
-      case "today":
-        return entryDate.format("DD") === currentDate.format("DD");
-      case "week":
-        return entryDate.isBetween(FROM_DATE, TO_DATE);
-      case "month":
-        return entryDate.format("MM") === currentDate.format("MM");
-      case "individual":
-        return entryDate.format("DD") === moment(selectedFilter.value).format("DD");
-      default:
-        return entry;
-    }
-  });
+      switch (selectedFilter.type) {
+        case "today":
+          return entryDate.format("DD") === currentDate.format("DD");
+        case "week":
+          return entryDate.isBetween(FROM_DATE, TO_DATE);
+        case "month":
+          return entryDate.format("MM") === currentDate.format("MM");
+        case "individual":
+          return (
+            entryDate.format("DD") === moment(selectedFilter.value).format("DD")
+          );
+        default:
+          return entry;
+      }
+    })
+    .sort((a, b) => {
+      return moment(b.date) - moment(a.date);
+    });
 
   return (
     <>

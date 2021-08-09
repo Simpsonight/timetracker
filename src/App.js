@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React from "react";
 import { makeStyles } from "@material-ui/core";
-import NewTimeEntry from "./components/NewTimeEntry/NewTimeEntry";
+import NewEntry from "./components/NewEntry/NewEntry";
 import Entries from "./components/Entries/Entries";
 import DataList from "./components/DataList/DataList";
-import clientsData from "./__mocks/clientsData";
-import workingTimeData from "./__mocks/workingTimeData";
+
+import ClientContextProvider from "./contexts/ClientContext";
+import EntryContextProvider from "./contexts/EntryContext";
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -22,30 +22,22 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  const [workingTime, setWorkingTime] = useState(workingTimeData);
-
-  const updateWorkingTime = (newEntry) => {
-    setWorkingTime((prevEntries) => {
-      const updatedEntries = [...prevEntries];
-      updatedEntries.unshift({ ...newEntry, id: uuidv4() });
-      return updatedEntries;
-    });
-  };
 
   return (
-    <div className={classes.layout}>
-      <h1>Timetracker</h1>
-      <NewTimeEntry
-        onNewEntry={updateWorkingTime}
-        data={clientsData}
-      />
+    <ClientContextProvider>
+      <EntryContextProvider>
+        <div className={classes.layout}>
+          <h1>Timetracker</h1>
+          <NewEntry />
 
-      <h2>Card List</h2>
-      <Entries entries={workingTime} />
-      
-      <h2>Data List - All Entries</h2>
-      <DataList entries={workingTime} />
-    </div>
+          <h2>Card List</h2>
+          <Entries />
+
+          <h2>Data List - All Entries</h2>
+          <DataList />
+        </div>
+      </EntryContextProvider>
+    </ClientContextProvider>
   );
 };
 

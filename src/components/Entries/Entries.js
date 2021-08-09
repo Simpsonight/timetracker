@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { EntryContext } from "../../contexts/EntryContext";
 import moment from "moment";
 
 import EntryItem from "./EntryItem/EntryItem";
@@ -10,7 +11,8 @@ const filterDefault = {
   value: "",
 };
 
-const Entries = ({ entries }) => {
+const Entries = () => {
+  const { entries } = useContext(EntryContext);
   const [selectedFilter, setSelectedFilter] = useState(filterDefault);
 
   const filterChangeHandler = (filter) => {

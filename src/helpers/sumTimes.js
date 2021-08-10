@@ -57,3 +57,30 @@ export const sumHours = (entries) => {
     minutes: `${m < 10 ? "0" + m : m}`,
   };
 };
+
+/**
+ * Return remaining hours
+ * @param {*} totalHours
+ * @returns
+ */
+export const remainingHours = (periodHours, bookedHours) => {
+  let h = 0;
+  let m = 0;
+
+  const minutes = (hours) => hours * 60;
+
+  const tempRemainingHours =
+    minutes(periodHours) - (minutes(+bookedHours.hours) + +bookedHours.minutes);
+
+  if (tempRemainingHours >= 60) {
+    let tempHours = (tempRemainingHours / 60) << 0;
+    let tempMinutes = tempRemainingHours % 60;
+    h += tempHours;
+    m = tempMinutes;
+  }
+
+  return {
+    hours: `${h < 10 ? "0" + h : h}`,
+    minutes: `${m < 10 ? "0" + m : m}`,
+  };
+};

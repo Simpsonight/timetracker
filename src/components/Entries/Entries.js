@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
+import { Grid } from "@material-ui/core";
 import { EntryContext } from "../../contexts/EntryContext";
 import moment from "moment";
-
 import EntryItem from "./EntryItem/EntryItem";
-import TotalTime from "./TotalTime/TotalTime";
 import EntriesFilter from "./EntriesFilter/EntriesFilter";
+import TotalTime from "../Stats/TotalTime/TotalTime";
+import RemainingWorkTime from "../Stats/RemainingWorkTime/RemainingWorkTime";
 
 const filterDefault = {
   type: "all",
@@ -52,7 +53,15 @@ const Entries = () => {
         selected={selectedFilter}
         onChangeFilter={filterChangeHandler}
       />
-      <TotalTime entries={filteredEntries} />
+      <Grid container spacing={3}>
+        <Grid item xs={6}>
+          <TotalTime entries={filteredEntries} />
+        </Grid>
+        <Grid item xs={6}>
+          <RemainingWorkTime entries={filteredEntries} filter={selectedFilter} />
+        </Grid>
+      </Grid>
+
       {filteredEntries.map((entry) => (
         <EntryItem key={entry.id} entryData={entry} />
       ))}

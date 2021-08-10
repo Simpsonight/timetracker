@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import BookingDate from "../EntryDate/EntryDate";
+import EntryDate from "../EntryDate/EntryDate";
 import styles from "./EntryItem.module.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +40,7 @@ const EntryItem = ({
     <>
       <Card className={styles["booking-item"]}>
         <CardContent>
-          <BookingDate date={new Date(date)} />
+          <EntryDate date={new Date(date)} />
           <div className={styles["booking-item__description"]}>
             <h2>{task}</h2>
             <p>

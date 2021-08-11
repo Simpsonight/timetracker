@@ -84,3 +84,39 @@ export const remainingHours = (periodHours, bookedHours) => {
     minutes: `${m < 10 ? "0" + m : m}`,
   };
 };
+
+/**
+ * MomentJS - get working days without weekends
+ * @param {*} startDate 
+ * @param {*} endDate 
+ * @returns 
+ */
+export const getWorkingDays = (startDate, endDate) => {
+  // get nb of weekend days
+  var startDateMonday = startDate.clone().startOf("isoWeek");
+  var endDateMonday = endDate.clone().startOf("isoWeek");
+
+  var nbWeekEndDays = (2 * endDateMonday.diff(startDateMonday, "days")) / 7;
+  var isoDayStart = startDate.isoWeekday();
+  if (isoDayStart > 5) {
+    // starts during the weekend
+    nbWeekEndDays -= 8 - isoDayStart;
+  }
+  var isoDayEnd = endDate.isoWeekday();
+  if (isoDayEnd > 5) {
+    // ends during the weekend
+    nbWeekEndDays += 8 - isoDayEnd;
+  }
+
+  // if we want to also exlcude holidays
+  // var startOfStartDate = startDate.clone().startOf("day");
+  // var nbHolidays = holidays.filter((h) => {
+  //   return h.isSameOrAfter(startOfStartDate) && h.isSameOrBefore(endDate);
+  // }).length;
+
+  var duration = moment.duration(endDate.diff(startDate));
+  // duration = duration.subtract({ days: nbWeekEndDays + nbHolidays });
+  duration = duration.subtract({ days: nbWeekEndDays });
+
+  return Math.floor(duration.asDays()); // get only nb of complete days
+};

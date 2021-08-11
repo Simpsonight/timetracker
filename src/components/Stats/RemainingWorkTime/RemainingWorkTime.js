@@ -1,40 +1,46 @@
 import React from "react";
-import { sumHours, remainingHours } from "../../../helpers/sumTimes";
+import { sumHours, remainingHours, getWorkingDays } from "../../../helpers/sumTimes";
 import moment from "moment";
 import { Box } from "@material-ui/core";
 import Paper from "../../Ui/Paper";
 import styles from "./RemainingWorkTime.module.css";
 
-
 const HOURS_PER_DAY = 8;
 const DAYS_PER_WEEK = 5;
+
+
 
 const getWorkingTimePeriod = (filter) => {
   const currentDate = moment();
   const FROM_DATE = currentDate.clone().startOf("isoWeek");
   const TO_DATE = currentDate.clone().endOf("isoWeek");
 
+  const WEEK_DAYS = getWorkingDays(FROM_DATE, TO_DATE);
+
+  console.log("Week Start", FROM_DATE);
+  console.log("Week End", TO_DATE);
+  console.log("Week Days",WEEK_DAYS );
+
   // TODO: get real working days with momentJS methods
   switch (filter.type) {
     case "today":
       return HOURS_PER_DAY;
     case "week":
-      return HOURS_PER_DAY * DAYS_PER_WEEK;
+      return HOURS_PER_DAY * WEEK_DAYS;
     case "month":
-      return (HOURS_PER_DAY * DAYS_PER_WEEK) * 4;
+      return HOURS_PER_DAY * DAYS_PER_WEEK * 4;
     case "individual":
-      return HOURS_PER_DAY
+      return HOURS_PER_DAY;
     default:
       return HOURS_PER_DAY;
   }
 };
 
-
 const RemainingWorkTime = ({ entries, filter }) => {
   let remainingTime = null;
   let bookedTime = null;
 
-  const periodTime = getWorkingTimePeriod(filter)
+  const periodTime = getWorkingTimePeriod(filter);
 
   if (entries.length > 0) {
     bookedTime = sumHours(entries);

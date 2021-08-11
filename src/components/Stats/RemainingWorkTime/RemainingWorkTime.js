@@ -28,7 +28,6 @@ const getWorkingTimePeriod = (filter) => {
     START_CURRENT_MONTH
   );
 
-  // TODO: get real working days with momentJS methods
   switch (filter.type) {
     case "today":
       return HOURS_PER_DAY;

@@ -1,25 +1,32 @@
 import React from "react";
-import { sumHours, remainingHours, getWorkingDays } from "../../../helpers/sumTimes";
-import moment from "moment";
+import { sumHours, remainingHours } from "../../../helpers/sumTimes";
+import {
+  startOfWeek,
+  endOfWeek,
+  startOfMonth,
+  endOfMonth,
+  differenceInBusinessDays,
+} from "date-fns";
 import { Box } from "@material-ui/core";
 import Paper from "../../Ui/Paper";
 import styles from "./RemainingWorkTime.module.css";
 
 const HOURS_PER_DAY = 8;
-const DAYS_PER_WEEK = 5;
-
-
 
 const getWorkingTimePeriod = (filter) => {
-  const currentDate = moment();
-  const FROM_DATE = currentDate.clone().startOf("isoWeek");
-  const TO_DATE = currentDate.clone().endOf("isoWeek");
-
-  const WEEK_DAYS = getWorkingDays(FROM_DATE, TO_DATE);
-
-  console.log("Week Start", FROM_DATE);
-  console.log("Week End", TO_DATE);
-  console.log("Week Days",WEEK_DAYS );
+  const currentDate = new Date();
+  const START_CURRENT_WEEK = startOfWeek(currentDate, { weekStartsOn: 1 });
+  const END_CURRENT_WEEK = endOfWeek(currentDate, { weekStartsOn: 1 });
+  const WEEK_DAYS = differenceInBusinessDays(
+    END_CURRENT_WEEK,
+    START_CURRENT_WEEK
+  );
+  const START_CURRENT_MONTH = startOfMonth(currentDate);
+  const END_CURRENT_MONTH = endOfMonth(currentDate);
+  const MONTH_DAYS = differenceInBusinessDays(
+    END_CURRENT_MONTH,
+    START_CURRENT_MONTH
+  );
 
   // TODO: get real working days with momentJS methods
   switch (filter.type) {
@@ -28,9 +35,7 @@ const getWorkingTimePeriod = (filter) => {
     case "week":
       return HOURS_PER_DAY * WEEK_DAYS;
     case "month":
-      return HOURS_PER_DAY * DAYS_PER_WEEK * 4;
-    case "individual":
-      return HOURS_PER_DAY;
+      return HOURS_PER_DAY * MONTH_DAYS;
     default:
       return HOURS_PER_DAY;
   }
@@ -38,28 +43,21 @@ const getWorkingTimePeriod = (filter) => {
 
 const RemainingWorkTime = ({ entries, filter }) => {
   let remainingTime = null;
-  let bookedTime = null;
-
-  const periodTime = getWorkingTimePeriod(filter);
+  let bookedTime = {hours: 0, minutes: 0};
 
   if (entries.length > 0) {
     bookedTime = sumHours(entries);
-    remainingTime = remainingHours(periodTime, bookedTime);
   }
+
+  remainingTime = remainingHours(getWorkingTimePeriod(filter), bookedTime);
 
   return (
     <Paper>
       <Box className={styles.card} p={2}>
-        {!remainingTime ? (
-          <p>Keine Zeiten eingetragen!</p>
-        ) : (
-          <>
-            <div className={styles.time}>
-              {remainingTime.hours}:{remainingTime.minutes}h
-            </div>
-            <div className="sub">Remaining Hours</div>
-          </>
-        )}
+        <div className={styles.time}>
+          {remainingTime.hours}:{remainingTime.minutes}h
+        </div>
+        <div className="sub">Remaining Hours</div>
       </Box>
     </Paper>
   );

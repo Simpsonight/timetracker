@@ -1,11 +1,12 @@
 import React, { useState, useContext } from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { EntryContext } from "../../contexts/EntryContext";
 import { format, startOfWeek, endOfWeek, isWithinInterval } from "date-fns";
 import EntryItem from "./EntryItem/EntryItem";
 import EntriesFilter from "./EntriesFilter/EntriesFilter";
 import TotalTime from "../Stats/TotalTime/TotalTime";
 import RemainingWorkTime from "../Stats/RemainingWorkTime/RemainingWorkTime";
+import Paper from "../Ui/Paper";
 
 const filterDefault = {
   type: "all",
@@ -31,12 +32,10 @@ const Entries = () => {
         case "today":
           return format(entryDate, "dd") === format(currentDate, "dd");
         case "week":
-          return (
-            isWithinInterval(entryDate, {
-              start: new Date(START_CURRENT_WEEK),
-              end: new Date(END_CURRENT_WEEK),
-            })
-          );
+          return isWithinInterval(entryDate, {
+            start: new Date(START_CURRENT_WEEK),
+            end: new Date(END_CURRENT_WEEK),
+          });
         case "month":
           return format(entryDate, "MM") === format(currentDate, "MM");
         case "individual":
@@ -61,6 +60,11 @@ const Entries = () => {
         onChangeFilter={filterChangeHandler}
       />
       <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Typography variant="h1" component="h2">
+            {selectedFilter.type}
+          </Typography>
+        </Grid>
         <Grid item xs={6}>
           <TotalTime entries={filteredEntries} />
         </Grid>
@@ -70,11 +74,17 @@ const Entries = () => {
             filter={selectedFilter}
           />
         </Grid>
+        <Grid item xs={12}>
+          <Paper>
+            <Typography variant="h5" component="h3">
+              Work Summary
+            </Typography>
+            {filteredEntries.map((entry) => (
+              <EntryItem key={entry.id} entryData={entry} />
+            ))}
+          </Paper>
+        </Grid>
       </Grid>
-
-      {filteredEntries.map((entry) => (
-        <EntryItem key={entry.id} entryData={entry} />
-      ))}
     </>
   );
 };

@@ -1,16 +1,18 @@
 import React from "react";
-import styles from "./EntryDate.module.css";
+import { Typography } from "@material-ui/core";
+import useStyles from "./styles";
 
 const EntryDate = ({ date }) => {
-  const month = date.toLocaleString("de-DE", { month: "long" });
+  const classes = useStyles();
+  const month = date.toLocaleString("de-DE", { month: "short" });
   const day = date.toLocaleString("de-DE", { day: "2-digit" });
-  const year = date.getFullYear();
+  // const year = date.getFullYear();
 
   return (
-    <div className={styles["entry-date"]}>
-      <div className={styles["entry-date__year"]}>{year}</div>
-      <div className={styles["entry-date__day"]}>{day}</div>
-      <div className={styles["entry-date__month"]}>{month}</div>
+    <div className={classes.root}>
+      {/* <Typography>{year}</Typography> */}
+      <Typography variant="h4" component="span">{day}</Typography>
+      <Typography>{month}</Typography>
     </div>
   );
 };

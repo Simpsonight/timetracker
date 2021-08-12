@@ -1,8 +1,7 @@
 import React from "react";
 import { sumHours } from "../../../helpers/sumTimes";
-import { Box } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import Paper from "../../Ui/Paper";
-import styles from "./TotalTime.module.css";
 
 const TotalTime = ({ entries }) => {
   let totalTime = null;
@@ -13,18 +12,20 @@ const TotalTime = ({ entries }) => {
 
   return (
     <Paper>
-      <Box className={styles.card} p={2}>
-        {!totalTime ? (
-          <p>Keine Zeiten eingetragen!</p>
-        ) : (
-          <>
-            <div className={styles.time}>
-              {totalTime.hours}:{totalTime.minutes}h
-            </div>
-            <div className="sub">Hours Tracked</div>
-          </>
-        )}
-      </Box>
+      {!totalTime ? (
+        <Typography variant="overline" display="block">
+          Keine Zeiten eingetragen!
+        </Typography>
+      ) : (
+        <>
+          <Typography variant="h3" component="p">
+            {totalTime.hours}:{totalTime.minutes}h
+          </Typography>
+          <Typography variant="overline" display="block">
+            Hours Tracked
+          </Typography>
+        </>
+      )}
     </Paper>
   );
 };

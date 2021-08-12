@@ -6,6 +6,7 @@ import EntryItem from "./EntryItem/EntryItem";
 import EntriesFilter from "./EntriesFilter/EntriesFilter";
 import TotalTime from "../Stats/TotalTime/TotalTime";
 import RemainingWorkTime from "../Stats/RemainingWorkTime/RemainingWorkTime";
+import Amount from "../Stats/Amount/Amount";
 import Paper from "../Ui/Paper";
 
 const filterDefault = {
@@ -61,8 +62,8 @@ const Entries = () => {
       />
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h1" component="h2">
-            {selectedFilter.type}
+          <Typography variant="h2" component="h2">
+            Time Period: <b>{selectedFilter.type}</b>
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -75,13 +76,22 @@ const Entries = () => {
           />
         </Grid>
         <Grid item xs={12}>
+          <Amount entries={filteredEntries} />
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h5" component="h3" gutterBottom>
+            Work Summary
+          </Typography>
           <Paper>
-            <Typography variant="h5" component="h3">
-              Work Summary
-            </Typography>
-            {filteredEntries.map((entry) => (
-              <EntryItem key={entry.id} entryData={entry} />
-            ))}
+            {filteredEntries.length > 0 ? (
+              filteredEntries.map((entry) => (
+                <EntryItem key={entry.id} entryData={entry} />
+              ))
+            ) : (
+              <Typography variant="overline" display="block">
+                Keine Einträge vorhanden!
+              </Typography>
+            )}
           </Paper>
         </Grid>
       </Grid>

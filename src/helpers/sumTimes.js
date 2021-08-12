@@ -52,3 +52,14 @@ export const remainingHours = (periodHours, bookedHours) => {
     minutes: `${m < 10 ? "0" + m : m}`,
   };
 };
+
+
+/**
+ * Convert time string "00:00" to decimal number
+ * @param {*} time 
+ * @returns 
+ */
+export const timeToDecimal = (time) => {
+  const timeArr = time.split(":");
+  return +(+timeArr[0] + +timeArr[1] / 60).toFixed(2);
+};

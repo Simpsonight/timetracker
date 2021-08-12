@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
     borderBottom: "1px solid #ccc",
+    textAlign: 'left'
   },
   task: {
     margin: 0,

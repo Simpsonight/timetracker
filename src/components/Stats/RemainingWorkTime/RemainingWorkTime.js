@@ -7,9 +7,8 @@ import {
   endOfMonth,
   differenceInBusinessDays,
 } from "date-fns";
-import { Box } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import Paper from "../../Ui/Paper";
-import styles from "./RemainingWorkTime.module.css";
 
 const HOURS_PER_DAY = 8;
 
@@ -42,7 +41,7 @@ const getWorkingTimePeriod = (filter) => {
 
 const RemainingWorkTime = ({ entries, filter }) => {
   let remainingTime = null;
-  let bookedTime = {hours: 0, minutes: 0};
+  let bookedTime = { hours: 0, minutes: 0 };
 
   if (entries.length > 0) {
     bookedTime = sumHours(entries);
@@ -52,12 +51,12 @@ const RemainingWorkTime = ({ entries, filter }) => {
 
   return (
     <Paper>
-      <Box className={styles.card} p={2}>
-        <div className={styles.time}>
-          {remainingTime.hours}:{remainingTime.minutes}h
-        </div>
-        <div className="sub">Remaining Hours</div>
-      </Box>
+      <Typography variant="h3" component="p">
+        {remainingTime.hours}:{remainingTime.minutes}h
+      </Typography>
+      <Typography variant="overline" display="block">
+        Remaining Hours
+      </Typography>
     </Paper>
   );
 };

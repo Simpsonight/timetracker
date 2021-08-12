@@ -6,6 +6,7 @@ const clientsData = [
       {
         id: 1,
         name: "Kunde 1 - project 1",
+        hourlyRate: 80.00,
         tasks: [
           {
             id: 1,
@@ -20,6 +21,7 @@ const clientsData = [
       {
         id: 2,
         name: "Kunde 1 - project 2",
+        hourlyRate: 85.00,
         tasks: [
           {
             id: 1,
@@ -36,6 +38,7 @@ const clientsData = [
       {
         id: 3,
         name: "Kunde 2 - project 1",
+        hourlyRate: 80.00,
         tasks: [
           {
             id: 1,
@@ -50,6 +53,7 @@ const clientsData = [
       {
         id: 4,
         name: "Kunde 2 - project 2",
+        hourlyRate: 90.00,
         tasks: [
           {
             id: 1,
@@ -70,6 +74,7 @@ const clientsData = [
       {
         id: 5,
         name: "Kunde 3 - project 1",
+        hourlyRate: 90.00,
         tasks: [
           {
             id: 1,
@@ -84,6 +89,7 @@ const clientsData = [
       {
         id: 6,
         name: "Kunde 3 - project 2",
+        hourlyRate: 80.00,
         tasks: [
           {
             id: 1,

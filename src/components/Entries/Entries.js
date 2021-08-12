@@ -41,8 +41,8 @@ const Entries = () => {
           return format(entryDate, "MM") === format(currentDate, "MM");
         case "individual":
           return (
-            format(entryDate, "dd") ===
-            format(new Date(selectedFilter.value), "dd")
+            format(entryDate, "MM/dd/yyyy") ===
+            format(new Date(selectedFilter.value), "MM/dd/yyyy")
           );
         default:
           return entry;

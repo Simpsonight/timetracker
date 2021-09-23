@@ -3,7 +3,7 @@ import { ClientContext } from "../../../contexts/ClientContext";
 import { Typography } from "@material-ui/core";
 import { timeToDecimal } from "../../../helpers/sumTimes";
 import { getProjectHourRate } from "../../../helpers/getProjectData";
-import Paper from "../../Ui/Paper";
+import Paper from "../../Ui/Paper/Paper";
 
 const Amount = ({ entries }) => {
   const { clients } = useContext(ClientContext);

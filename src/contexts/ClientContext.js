@@ -4,10 +4,14 @@ import initialState from "../__mocks/clientsData";
 
 export const ClientContext = createContext();
 
-const ClientContextProvider = props => {
+const ClientContextProvider = (props) => {
   const [clients, dispatch] = useReducer(clientReducer, [], () => {
-    const localData = localStorage.getItem("clients");
-    return localData ? JSON.parse(localData) : initialState;
+    if (typeof window !== "undefined") {
+      const localData = localStorage.getItem("clients");
+      return localData ? JSON.parse(localData) : initialState;
+    }
+    
+    return initialState;
   });
 
   useEffect(() => {
@@ -17,7 +21,7 @@ const ClientContextProvider = props => {
   const contextValue = useMemo(() => {
     return { clients, dispatch };
   }, [clients, dispatch]);
-  
+
   return (
     <ClientContext.Provider value={contextValue}>
       {props.children}

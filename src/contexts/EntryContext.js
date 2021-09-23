@@ -6,8 +6,11 @@ export const EntryContext = createContext();
 
 const EntryContextProvider = (props) => {
   const [entries, dispatch] = useReducer(entryReducer, [], () => {
-    const localData = localStorage.getItem("entries");
-    return localData ? JSON.parse(localData) : initialState;
+    if (typeof window !== "undefined") {
+      const localData = localStorage.getItem("entries");
+      return localData ? JSON.parse(localData) : initialState;
+    }
+    return initialState;
   });
 
   useEffect(() => {

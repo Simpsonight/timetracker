@@ -1,21 +1,16 @@
-import { makeStyles } from "@material-ui/core";
+import styled from "styled-components";
+import theme from "../../../theme";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: theme.spacing(1),
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderBottom: "1px solid #ccc",
-    textAlign: 'left'
-  },
-  task: {
-    margin: 0,
-  },
-  subline: {
-    margin: 0,
-    color: theme.palette.lightGrey.main
-  },
-}));
+export const Container = styled.div`
+  padding: ${theme.spacing(1)}px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+`;
 
-export default useStyles;
+export const Subline = styled.p`
+  margin: 0;
+  color: ${theme.palette.lightGrey.main};
+`;

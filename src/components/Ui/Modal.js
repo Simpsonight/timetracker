@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Modal as MaterialUiModal } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import Paper from './Paper';
+import Paper from './Paper/Paper';
 
 const useStyles = makeStyles((theme) => ({
   modal: {

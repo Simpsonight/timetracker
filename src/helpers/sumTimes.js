@@ -1,3 +1,10 @@
+const formatTime = (h, m) => {
+  return {
+    hours: `${h < 10 ? "0" + h : h}`,
+    minutes: `${m < 10 ? "0" + m : m}`,
+  };
+};
+
 /**
  * Sum booked times to hours and minutes
  * @param {*} entries
@@ -20,10 +27,7 @@ export const sumHours = (entries) => {
     m = tempMinutes;
   }
 
-  return {
-    hours: `${h < 10 ? "0" + h : h}`,
-    minutes: `${m < 10 ? "0" + m : m}`,
-  };
+  return formatTime(h, m);
 };
 
 /**
@@ -47,19 +51,35 @@ export const remainingHours = (periodHours, bookedHours) => {
     m = tempMinutes;
   }
 
-  return {
-    hours: `${h < 10 ? "0" + h : h}`,
-    minutes: `${m < 10 ? "0" + m : m}`,
-  };
+  return formatTime(h, m);
 };
-
 
 /**
  * Convert time string "00:00" to decimal number
- * @param {*} time 
- * @returns 
+ * @param {*} time
+ * @returns
  */
 export const timeToDecimal = (time) => {
   const timeArr = time.split(":");
   return +(+timeArr[0] + +timeArr[1] / 60).toFixed(2);
+};
+
+/**
+ * Convert decimal number "00.00" to hours and minutes
+ * @param {*} time
+ * @returns
+ */
+export const decimalToTime = (time) => {
+  const timeArr = time.split(".");
+  const h = +timeArr[0];
+  const m = +timeArr[1] * 0.6;
+
+  if (m >= 60) {
+    let tempHours = (m / 60) << 0;
+    let tempMinutes = m % 60;
+    h += tempHours;
+    m = tempMinutes;
+  }
+
+  return formatTime(h, m);
 };

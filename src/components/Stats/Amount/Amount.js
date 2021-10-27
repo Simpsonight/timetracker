@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { ClientContext } from "../../../contexts/ClientContext";
 import { Typography } from "@material-ui/core";
-import { timeToDecimal } from "../../../helpers/sumTimes";
+import { decimalToTime, timeToDecimal } from "../../../helpers/sumTimes";
 import { getProjectHourRate } from "../../../helpers/getProjectData";
-import Paper from "../../Ui/Paper";
+import Paper from "../../Ui/Paper/Paper";
 
 const Amount = ({ entries }) => {
   const { clients } = useContext(ClientContext);
@@ -45,6 +45,7 @@ const Amount = ({ entries }) => {
     projectData = combinedProjectItems(entries).map((item) => {
       item.amount = item.amount.reduce((prev, curr) => prev + curr).toFixed(2);
       item.sum = (item.rate * item.amount).toFixed(2);
+      item.time = decimalToTime(item.amount);
       return item;
     });
 
@@ -63,7 +64,7 @@ const Amount = ({ entries }) => {
         projectData.map((item) => {
           return (
             <div key={item.name}>
-              {item.name} | {item.amount} h | {item.rate} €/h == {item.sum} €
+              {item.name} | {item.time.hours}:{item.time.minutes} h | {item.rate} €/h == {item.sum} €
             </div>
           );
         })

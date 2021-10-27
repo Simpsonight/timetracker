@@ -7,7 +7,7 @@ import EntriesFilter from "./EntriesFilter/EntriesFilter";
 import TotalTime from "../Stats/TotalTime/TotalTime";
 import RemainingWorkTime from "../Stats/RemainingWorkTime/RemainingWorkTime";
 import Amount from "../Stats/Amount/Amount";
-import Paper from "../Ui/Paper";
+import Paper from "../Ui/Paper/Paper";
 
 const filterDefault = {
   type: "all",

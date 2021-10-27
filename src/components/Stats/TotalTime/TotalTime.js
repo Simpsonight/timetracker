@@ -1,7 +1,7 @@
 import React from "react";
 import { sumHours } from "../../../helpers/sumTimes";
 import { Typography } from "@material-ui/core";
-import Paper from "../../Ui/Paper";
+import Paper from "../../Ui/Paper/Paper";
 
 const TotalTime = ({ entries }) => {
   let totalTime = null;

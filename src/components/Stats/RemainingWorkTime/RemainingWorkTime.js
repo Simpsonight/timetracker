@@ -8,7 +8,7 @@ import {
   differenceInBusinessDays,
 } from "date-fns";
 import { Typography } from "@material-ui/core";
-import Paper from "../../Ui/Paper";
+import Paper from "../../Ui/Paper/Paper";
 
 const HOURS_PER_DAY = 8;
 

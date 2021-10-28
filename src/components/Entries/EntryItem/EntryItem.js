@@ -1,23 +1,25 @@
 import React from "react";
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import EntryDate from "../EntryDate/EntryDate";
-import * as Styled from "./styles";
+import useStyles from "./styles";
 
 const EntryItem = ({
   entryData: { date, task, project, client, description, time },
 }) => {
 
+  const classes = useStyles();
+
   return (
-    <Styled.Container>
+    <div className={classes.container}>
       <EntryDate date={new Date(date)} />
       <div>
         <Typography variant="h4" component="p">{task}</Typography>
-        <Styled.Subline>
+        <p className={classes.subline}>
           {client} <span>|</span> {project}
-        </Styled.Subline>
+        </p>
       </div>
       <Typography variant="h4" component="p">{time} h</Typography>
-    </Styled.Container>
+    </div>
   );
 };
 

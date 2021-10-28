@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Grid, Typography } from "@material-ui/core";
+import React, { useState, useEffect, useContext } from "react";
+import { Grid, Typography, Paper } from "@mui/material";
 import { EntryContext } from "../../contexts/EntryContext";
 import { format, startOfWeek, endOfWeek, isWithinInterval } from "date-fns";
 import EntryItem from "./EntryItem/EntryItem";
@@ -7,7 +7,6 @@ import EntriesFilter from "./EntriesFilter/EntriesFilter";
 import TotalTime from "../Stats/TotalTime/TotalTime";
 import RemainingWorkTime from "../Stats/RemainingWorkTime/RemainingWorkTime";
 import Amount from "../Stats/Amount/Amount";
-import Paper from "../Ui/Paper/Paper";
 
 const filterDefault = {
   type: "all",
@@ -17,42 +16,49 @@ const filterDefault = {
 const Entries = () => {
   const { entries } = useContext(EntryContext);
   const [selectedFilter, setSelectedFilter] = useState(filterDefault);
+  const [filteredEntries, setFilteredEntries] = useState([]);
 
   const filterChangeHandler = (filter) => {
     setSelectedFilter(filter);
   };
 
-  const filteredEntries = entries
-    .filter((entry) => {
-      const entryDate = new Date(entry.date);
-      const currentDate = new Date();
-      const START_CURRENT_WEEK = startOfWeek(currentDate, { weekStartsOn: 1 });
-      const END_CURRENT_WEEK = endOfWeek(currentDate, { weekStartsOn: 1 });
-
-      switch (selectedFilter.type) {
-        case "today":
-          return format(entryDate, "dd") === format(currentDate, "dd");
-        case "week":
-          return isWithinInterval(entryDate, {
-            start: new Date(START_CURRENT_WEEK),
-            end: new Date(END_CURRENT_WEEK),
+  useEffect(() => {
+    setFilteredEntries(
+      entries
+        .filter((entry) => {
+          const entryDate = new Date(entry.date);
+          const currentDate = new Date();
+          const START_CURRENT_WEEK = startOfWeek(currentDate, {
+            weekStartsOn: 1,
           });
-        case "month":
-          return format(entryDate, "MM") === format(currentDate, "MM");
-        case "individual":
-          return (
-            format(entryDate, "MM/dd/yyyy") ===
-            format(new Date(selectedFilter.value), "MM/dd/yyyy")
-          );
-        default:
-          return entry;
-      }
-    })
-    .sort((a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
-      return dateB - dateA;
-    });
+          const END_CURRENT_WEEK = endOfWeek(currentDate, { weekStartsOn: 1 });
+
+          switch (selectedFilter.type) {
+            case "today":
+              return format(entryDate, "dd") === format(currentDate, "dd");
+            case "week":
+              return isWithinInterval(entryDate, {
+                start: new Date(START_CURRENT_WEEK),
+                end: new Date(END_CURRENT_WEEK),
+              });
+            case "month":
+              return format(entryDate, "MM") === format(currentDate, "MM");
+            case "individual":
+              return (
+                format(entryDate, "MM/dd/yyyy") ===
+                format(new Date(selectedFilter.value), "MM/dd/yyyy")
+              );
+            default:
+              return entry;
+          }
+        })
+        .sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+          return dateB - dateA;
+        })
+    );
+  }, [selectedFilter]);
 
   return (
     <>

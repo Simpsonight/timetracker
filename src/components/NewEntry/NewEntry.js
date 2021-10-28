@@ -3,10 +3,8 @@ import { Grid, Button } from "@mui/material";
 import { AccessTime } from "@mui/icons-material";
 import NewEntryForm from "./NewEntryForm/NewEntryForm";
 import Modal from "../Ui/Modal";
-import useStyles from "./styles";
 
 const NewEntry = () => {
-  const classes = useStyles();
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {

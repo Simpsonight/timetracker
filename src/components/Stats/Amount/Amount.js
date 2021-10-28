@@ -1,18 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ClientContext } from "../../../contexts/ClientContext";
-import { Typography } from "@material-ui/core";
+import { Typography, Paper } from "@mui/material";
 import { decimalToTime, timeToDecimal } from "../../../helpers/sumTimes";
 import { getProjectHourRate } from "../../../helpers/getProjectData";
-import Paper from "../../Ui/Paper/Paper";
 
 const Amount = ({ entries }) => {
   const { clients } = useContext(ClientContext);
+  const [salary, setSalary] = useState("0.00");
+  const [projectData, setProjectData] = useState([]);
 
-  let salary = "0.00";
-  let projectData = [];
+  // let salary = "0.00";
+  // let projectData = [];
 
   const calculatedSalaries = entries.map((entry) => {
-    return +(getProjectHourRate(entry, clients).hourlyRate * timeToDecimal(entry.time));
+    return +(
+      getProjectHourRate(entry, clients).hourlyRate * timeToDecimal(entry.time)
+    );
   });
 
   const combinedProjectItems = (entries = []) => {
@@ -41,16 +44,24 @@ const Amount = ({ entries }) => {
     return res;
   };
 
-  if (entries.length > 0) {
-    projectData = combinedProjectItems(entries).map((item) => {
-      item.amount = item.amount.reduce((prev, curr) => prev + curr).toFixed(2);
-      item.sum = (item.rate * item.amount).toFixed(2);
-      item.time = decimalToTime(item.amount);
-      return item;
-    });
+  useEffect(() => {
+    if (entries.length > 0) {
+      setProjectData(
+        combinedProjectItems(entries).map((item) => {
+          item.amount = item.amount
+            .reduce((prev, curr) => prev + curr)
+            .toFixed(2);
+          item.sum = (item.rate * item.amount).toFixed(2);
+          item.time = decimalToTime(item.amount);
+          return item;
+        })
+      );
 
-    salary = calculatedSalaries.reduce((prev, curr) => prev + curr).toFixed(2);
-  }
+      setSalary(
+        calculatedSalaries.reduce((prev, curr) => prev + curr).toFixed(2)
+      );
+    }
+  }, [entries]);
 
   return (
     <Paper>
@@ -64,7 +75,8 @@ const Amount = ({ entries }) => {
         projectData.map((item) => {
           return (
             <div key={item.name}>
-              {item.name} | {item.time.hours}:{item.time.minutes} h | {item.rate} €/h == {item.sum} €
+              {item.name} | {item.time.hours}:{item.time.minutes} h |{" "}
+              {item.rate} €/h == {item.sum} €
             </div>
           );
         })

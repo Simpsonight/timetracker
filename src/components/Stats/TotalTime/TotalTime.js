@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { sumHours } from "../../../helpers/sumTimes";
-import { Typography } from "@material-ui/core";
-import Paper from "../../Ui/Paper/Paper";
+import { Typography, Paper } from "@mui/material";
 
 const TotalTime = ({ entries }) => {
-  let totalTime = null;
+  const [totalTime, setTotalTime] = useState(null);
 
-  if (entries.length > 0) {
-    totalTime = sumHours(entries);
-  }
+  useEffect(() => {
+    if (entries.length > 0) {
+      setTotalTime(sumHours(entries));
+    }
+  }, [entries]);
 
   return (
     <Paper>

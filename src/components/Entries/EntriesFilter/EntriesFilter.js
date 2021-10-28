@@ -5,7 +5,7 @@ import {
   MenuItem,
   FormControl,
   Select,
-} from "@material-ui/core";
+} from "@mui/material";
 import DatePicker from "../../Ui/DatePicker";
 
 const rangeFilter = [

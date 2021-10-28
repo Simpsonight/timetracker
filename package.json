@@ -8,7 +8,6 @@
     "@emotion/react": "latest",
     "@emotion/server": "latest",
     "@emotion/styled": "latest",
-    "@material-ui/pickers": "^3.3.10",
     "@mui/icons-material": "latest",
     "@mui/lab": "^5.0.0-alpha.53",
     "@mui/material": "latest",

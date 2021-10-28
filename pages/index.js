@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Link from "../src/components/Link";
 import Copyright from "../src/components/Copyright";
 import NewEntry from "../src/components/NewEntry/NewEntry";
+import Entries from "../src/components/Entries/Entries";
 // import DataList from "../src/DataList/DataList";
 
 export default function Index() {
@@ -19,6 +20,9 @@ export default function Index() {
         </Link>
         <h1>Timetracker</h1>
         <NewEntry />
+
+        <h2>Card List</h2>
+        <Entries />
 
         {/* <h2>Data List - All Entries</h2>
           <DataList /> */}

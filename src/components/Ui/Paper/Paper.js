@@ -1,9 +1,12 @@
 import React from "react";
-import * as Styled from "./styles";
+import { Paper as MaterialUiPaper } from "@mui/material";
 
 const Paper = ({ styles, children }) => {
 
-  return <Styled.MaterialUiPaper className={styles ? styles : ''}>{children}</Styled.MaterialUiPaper>;
+  const SomeContent = React.forwardRef((props, ref) =>
+  <div {...props} ref={ref}>{children}</div>);
+
+  return <MaterialUiPaper className={styles ? styles : ''}><SomeContent /></MaterialUiPaper>;
 };
 
 export default Paper;

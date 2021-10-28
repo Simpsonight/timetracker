@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { DataGrid } from "@material-ui/data-grid";
-import { EntryContext } from "../../contexts/EntryContext";
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { EntryContext } from "../contexts/EntryContext";
 
 const columns = [
   {

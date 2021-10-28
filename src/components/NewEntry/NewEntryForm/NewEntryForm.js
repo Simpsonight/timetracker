@@ -11,8 +11,8 @@ import {
   TextField,
   InputAdornment,
   Button,
-} from "@material-ui/core";
-import { Save } from "@material-ui/icons";
+} from "@mui/material";
+import { Save } from "@mui/icons-material";
 import DatePicker from "../../Ui/DatePicker";
 import useStyles from "../styles";
 

@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import DateFnsUtils from "@date-io/date-fns";
-import { makeStyles } from "@material-ui/core/styles";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+import DateAdapter from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import MobileDatePicker from "@mui/lab/MobileDatePicker";
+import TextField from "@mui/material/TextField";
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   multiFormControl: {
@@ -22,23 +21,17 @@ const DatePicker = ({ onUpdateDate, defaultDate, name, label }) => {
   };
 
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <KeyboardDatePicker
+    <LocalizationProvider dateAdapter={DateAdapter}>
+      <MobileDatePicker
         className={classes.multiFormControl}
         name={name}
-        autoOk
-        variant="inline"
-        format="dd.MM.yyyy"
-        margin="normal"
-        id="date-picker-inline"
         label={label}
+        inputFormat="dd.MM.yyyy"
         value={selectedDate}
         onChange={handleDateChange}
-        KeyboardButtonProps={{
-          "aria-label": "change date",
-        }}
+        renderInput={(params) => <TextField {...params} />}
       />
-    </MuiPickersUtilsProvider>
+    </LocalizationProvider>
   );
 };
 

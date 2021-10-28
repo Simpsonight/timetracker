@@ -1,6 +1,7 @@
-import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import { red } from '@mui/material/colors';
 
-// A custom theme for this app
+// Create a theme instance.
 let theme = createTheme({
   palette: {
     primary: {
@@ -9,9 +10,12 @@ let theme = createTheme({
     secondary: {
       main: '#BBDEFB',
     },
+    error: {
+      main: red.A400,
+    },
     lightGrey: {
       main: '#989898'
-    }
+    },
   },
 });
 

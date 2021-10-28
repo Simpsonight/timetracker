@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Grid, Button } from "@material-ui/core";
-import { AccessTime } from "@material-ui/icons";
+import { Grid, Button } from "@mui/material";
+import { AccessTime } from "@mui/icons-material";
 import NewEntryForm from "./NewEntryForm/NewEntryForm";
 import Modal from "../Ui/Modal";
 import useStyles from "./styles";
@@ -24,7 +24,6 @@ const NewEntry = () => {
           variant="contained"
           color="primary"
           size="large"
-          className={classes.button}
           startIcon={<AccessTime />}
           onClick={handleOpen}
         >

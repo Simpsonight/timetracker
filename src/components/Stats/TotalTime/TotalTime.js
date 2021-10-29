@@ -6,9 +6,7 @@ const TotalTime = ({ entries }) => {
   const [totalTime, setTotalTime] = useState(null);
 
   useEffect(() => {
-    if (entries.length > 0) {
-      setTotalTime(sumHours(entries));
-    }
+    setTotalTime(sumHours(entries));
   }, [entries]);
 
   return (

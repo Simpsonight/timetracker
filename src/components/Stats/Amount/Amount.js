@@ -9,8 +9,7 @@ const Amount = ({ entries }) => {
   const [salary, setSalary] = useState("0.00");
   const [projectData, setProjectData] = useState([]);
 
-  // let salary = "0.00";
-  // let projectData = [];
+  const defaultSalary = "0.00";
 
   const calculatedSalaries = entries.map((entry) => {
     return +(
@@ -45,21 +44,23 @@ const Amount = ({ entries }) => {
   };
 
   useEffect(() => {
-    if (entries.length > 0) {
-      setProjectData(
-        combinedProjectItems(entries).map((item) => {
-          item.amount = item.amount
-            .reduce((prev, curr) => prev + curr)
-            .toFixed(2);
-          item.sum = (item.rate * item.amount).toFixed(2);
-          item.time = decimalToTime(item.amount);
-          return item;
-        })
-      );
+    setProjectData(
+      combinedProjectItems(entries).map((item) => {
+        item.amount = item.amount
+          .reduce((prev, curr) => prev + curr)
+          .toFixed(2);
+        item.sum = (item.rate * item.amount).toFixed(2);
+        item.time = decimalToTime(item.amount);
+        return item;
+      })
+    );
 
+    if (entries.length > 0) {
       setSalary(
         calculatedSalaries.reduce((prev, curr) => prev + curr).toFixed(2)
       );
+    } else {
+      setSalary(defaultSalary)
     }
   }, [entries]);
 

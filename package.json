@@ -15,6 +15,7 @@
     "@mui/x-data-grid": "^4.0.1",
     "clsx": "latest",
     "date-fns": "^2.25.0",
+    "husky": "^7.0.4",
     "next": "latest",
     "prop-types": "latest",
     "react": "latest",
@@ -25,6 +26,14 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+    "lint": "next lint",
+    "prepare": "husky install",
+    "prettier:check": "node_modules/.bin/prettier --check './**/*.js{,x}'",
+    "prettier:format": "node_modules/.bin/prettier --write './**/*.js{,x}'",
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
+    "check:all": "yarn prettier:check"
+  },
+  "devDependencies": {
+    "prettier": "2.4.1"
   }
 }

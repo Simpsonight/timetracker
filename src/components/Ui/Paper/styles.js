@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { Paper } from "@mui/material";
+import styled from 'styled-components';
+import { Paper } from '@mui/material';
 
-import theme from "../../../theme";
+import theme from '../../../theme';
 
 export const MaterialUiPaper = styled(Paper)`
     margin-top: 0;

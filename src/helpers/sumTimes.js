@@ -1,8 +1,8 @@
 const formatTime = (h, m) => {
-  return {
-    hours: `${h < 10 ? "0" + h : h}`,
-    minutes: `${m < 10 ? "0" + m : m}`,
-  };
+    return {
+        hours: `${h < 10 ? '0' + h : h}`,
+        minutes: `${m < 10 ? '0' + m : m}`,
+    };
 };
 
 /**
@@ -11,23 +11,23 @@ const formatTime = (h, m) => {
  * @returns
  */
 export const sumHours = (entries) => {
-  let h = 0;
-  let m = 0;
+    let h = 0;
+    let m = 0;
 
-  for (const entry of entries) {
-    const time = entry.time.split(":");
-    h += +time[0];
-    m += +time[1];
-  }
+    for (const entry of entries) {
+        const time = entry.time.split(':');
+        h += +time[0];
+        m += +time[1];
+    }
 
-  if (m >= 60) {
-    let tempHours = (m / 60) << 0;
-    let tempMinutes = m % 60;
-    h += tempHours;
-    m = tempMinutes;
-  }
+    if (m >= 60) {
+        let tempHours = (m / 60) << 0;
+        let tempMinutes = m % 60;
+        h += tempHours;
+        m = tempMinutes;
+    }
 
-  return formatTime(h, m);
+    return formatTime(h, m);
 };
 
 /**
@@ -36,22 +36,21 @@ export const sumHours = (entries) => {
  * @returns
  */
 export const remainingHours = (periodHours, bookedHours) => {
-  let h = 0;
-  let m = 0;
+    let h = 0;
+    let m = 0;
 
-  const minutes = (hours) => hours * 60;
+    const minutes = (hours) => hours * 60;
 
-  const tempRemainingHours =
-    minutes(periodHours) - (minutes(+bookedHours.hours) + +bookedHours.minutes);
+    const tempRemainingHours = minutes(periodHours) - (minutes(+bookedHours.hours) + +bookedHours.minutes);
 
-  if (tempRemainingHours >= 60) {
-    let tempHours = (tempRemainingHours / 60) << 0;
-    let tempMinutes = tempRemainingHours % 60;
-    h += tempHours;
-    m = tempMinutes;
-  }
+    if (tempRemainingHours >= 60) {
+        let tempHours = (tempRemainingHours / 60) << 0;
+        let tempMinutes = tempRemainingHours % 60;
+        h += tempHours;
+        m = tempMinutes;
+    }
 
-  return formatTime(h, m);
+    return formatTime(h, m);
 };
 
 /**
@@ -60,8 +59,8 @@ export const remainingHours = (periodHours, bookedHours) => {
  * @returns
  */
 export const timeToDecimal = (time) => {
-  const timeArr = time.split(":");
-  return +(+timeArr[0] + +timeArr[1] / 60).toFixed(2);
+    const timeArr = time.split(':');
+    return +(+timeArr[0] + +timeArr[1] / 60).toFixed(2);
 };
 
 /**
@@ -70,16 +69,16 @@ export const timeToDecimal = (time) => {
  * @returns
  */
 export const decimalToTime = (time) => {
-  const timeArr = time.split(".");
-  const h = +timeArr[0];
-  const m = +timeArr[1] * 0.6;
+    const timeArr = time.split('.');
+    const h = +timeArr[0];
+    const m = +timeArr[1] * 0.6;
 
-  if (m >= 60) {
-    let tempHours = (m / 60) << 0;
-    let tempMinutes = m % 60;
-    h += tempHours;
-    m = tempMinutes;
-  }
+    if (m >= 60) {
+        let tempHours = (m / 60) << 0;
+        let tempMinutes = m % 60;
+        h += tempHours;
+        m = tempMinutes;
+    }
 
-  return formatTime(h, m);
+    return formatTime(h, m);
 };

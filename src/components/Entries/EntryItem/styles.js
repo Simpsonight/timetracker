@@ -1,5 +1,6 @@
 import { makeStyles } from '@mui/styles';
 
+
 const useStyles = makeStyles((theme) => ({
     container: {
         padding: theme.spacing(1),
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
     subline: {
         margin: 0,
-        color: theme.palette.lightGrey.main,
+        color: theme.palette.grey[600],
     },
 }));
 

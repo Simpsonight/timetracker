@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { ClientContext } from '../../../contexts/ClientContext';
 import { Typography, Paper } from '@mui/material';
-import { decimalToTime, timeToDecimal } from '../../../helpers/sumTimes';
-import { getProjectHourRate } from '../../../helpers/getProjectData';
+import { ClientContext } from '@/store/contexts/ClientContext';
+import { decimalToTime, timeToDecimal } from '@/helpers/sumTimes';
+import { getProjectHourRate } from '@/helpers/getProjectData';
 
 const Amount = ({ entries }) => {
     const { clients } = useContext(ClientContext);

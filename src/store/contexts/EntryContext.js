@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useEffect, useMemo } from 'react';
-import { entryReducer } from '../reducers/entryReducer';
-import initialState from '../__mocks/entriesData';
+import { entryReducer } from '@/store/reducers/entryReducer';
+import initialState from '../../__mocks/entriesData';
 
 export const EntryContext = createContext();
 

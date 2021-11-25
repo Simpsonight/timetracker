@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useEffect, useMemo } from 'react';
-import { clientReducer } from '../reducers/clientReducer';
-import initialState from '../__mocks/clientsData';
+import { clientReducer } from '@/store/reducers/clientReducer';
+import initialState from '../../__mocks/clientsData';
 
 export const ClientContext = createContext();
 

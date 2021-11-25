@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { sumHours } from '../../../helpers/sumTimes';
+import { sumHours } from '@/helpers/sumTimes';
 import { Typography, Paper } from '@mui/material';
 
 const TotalTime = ({ entries }) => {

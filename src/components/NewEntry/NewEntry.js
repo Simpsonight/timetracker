@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Button } from '@mui/material';
 import { AccessTime } from '@mui/icons-material';
 import NewEntryForm from './NewEntryForm/NewEntryForm';
-import Modal from '../Ui/Modal';
+import Modal from '@/components/Ui/Modal';
 
 const NewEntry = () => {
     const [open, setOpen] = useState(false);

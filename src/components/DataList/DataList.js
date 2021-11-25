@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { EntryContext } from '../contexts/EntryContext';
+import { EntryContext } from '@/store/contexts/EntryContext';
 
 const columns = [
     {

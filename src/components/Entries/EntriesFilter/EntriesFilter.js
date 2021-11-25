@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
-import DatePicker from '../../Ui/DatePicker';
+import DatePicker from '@/components/Ui/DatePicker';
 
 const rangeFilter = [
     { id: 1, value: 'all', filterName: 'Alle' },

@@ -1,10 +1,10 @@
 import React, { useState, useRef, useContext } from 'react';
-import { ClientContext } from '../../../contexts/ClientContext';
-import { EntryContext } from '../../../contexts/EntryContext';
-import { addEntry } from '../../../reducers/entryReducer';
+import { ClientContext } from '@/store/contexts/ClientContext';
+import { EntryContext } from '@/store/contexts/EntryContext';
+import { addEntry } from '@/store/reducers/entryReducer';
 import { Grid, InputLabel, MenuItem, FormControl, Select, TextField, InputAdornment, Button } from '@mui/material';
 import { Save } from '@mui/icons-material';
-import DatePicker from '../../Ui/DatePicker';
+import DatePicker from '@/components/Ui/DatePicker';
 import useStyles from '../styles';
 
 const defaultValues = {

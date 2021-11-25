@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Grid, Typography, Paper } from '@mui/material';
-import { EntryContext } from '../../contexts/EntryContext';
 import { format, startOfWeek, endOfWeek, isWithinInterval } from 'date-fns';
+import { Grid, Typography, Paper } from '@mui/material';
+import { EntryContext } from '@/store/contexts/EntryContext';
 import EntryItem from './EntryItem/EntryItem';
 import EntriesFilter from './EntriesFilter/EntriesFilter';
-import TotalTime from '../Stats/TotalTime/TotalTime';
-import RemainingWorkTime from '../Stats/RemainingWorkTime/RemainingWorkTime';
-import Amount from '../Stats/Amount/Amount';
+import TotalTime from '@/components/Stats/TotalTime/TotalTime';
+import RemainingWorkTime from '@/components/Stats/RemainingWorkTime/RemainingWorkTime';
+import Amount from '@/components/Stats/Amount/Amount';
 
 const filterDefault = {
     type: 'all',

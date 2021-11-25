@@ -1,5 +1,5 @@
 import React from 'react';
-import { sumHours, remainingHours } from '../../../helpers/sumTimes';
+import { sumHours, remainingHours } from '@/helpers/sumTimes';
 import { startOfWeek, endOfWeek, startOfMonth, endOfMonth, differenceInBusinessDays } from 'date-fns';
 import { Typography, Paper } from '@mui/material';
 

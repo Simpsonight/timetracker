@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from '@mui/material';
-import EntryDate from '../EntryDate/EntryDate';
+import EntryDate from '@/components/Entries/EntryDate/EntryDate';
 import useStyles from './styles';
 
 const EntryItem = ({ entryData: { date, task, project, client, description, time } }) => {

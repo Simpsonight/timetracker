@@ -1,16 +1,19 @@
-import styled from "styled-components";
-import theme from "../../../theme";
+import { makeStyles } from '@mui/styles';
 
-export const Container = styled.div`
-  padding: ${theme.spacing(1)}px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ccc;
-  text-align: left;
-`;
+const useStyles = makeStyles((theme) => ({
+    container: {
+        padding: theme.spacing(1),
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottom: '1px solid #ccc',
+        textAlign: 'left',
+    },
 
-export const Subline = styled.p`
-  margin: 0;
-  color: ${theme.palette.lightGrey.main};
-`;
+    subline: {
+        margin: 0,
+        color: theme.palette.grey[600],
+    },
+}));
+
+export default useStyles;

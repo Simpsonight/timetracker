@@ -1,47 +1,42 @@
 {
-  "name": "timetracker",
-  "version": "0.1.0",
+  "name": "nextjs",
+  "version": "5.0.0",
   "private": true,
   "dependencies": {
-    "@date-io/date-fns": "1.x",
-    "@material-ui/core": "^4.12.2",
-    "@material-ui/data-grid": "^4.0.0-alpha.34",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/pickers": "^3.3.10",
-    "@mui/material": "next",
-    "@mui/styled-engine-sc": "next",
-    "clsx": "^1.1.1",
-    "date-fns": "^2.23.0",
+    "@date-io/date-fns": "^2.11.0",
+    "@emotion/cache": "latest",
+    "@emotion/react": "latest",
+    "@emotion/server": "latest",
+    "@emotion/styled": "latest",
+    "@mui/icons-material": "latest",
+    "@mui/lab": "^5.0.0-alpha.53",
+    "@mui/material": "latest",
+    "@mui/styles": "^5.0.2",
+    "@mui/x-data-grid": "^4.0.1",
+    "clsx": "latest",
+    "date-fns": "^2.25.0",
+    "husky": "^7.0.4",
     "next": "latest",
-    "next-transpile-modules": "latest",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-is": "latest",
-    "styled-breakpoints": "^10.0.0",
-    "styled-components": "latest",
-    "uuid": "^8.3.2",
-    "web-vitals": "^1.0.1"
-  },
-  "devDependencies": {
-    "eslint": "7.32.0",
-    "eslint-config-next": "12.0.1"
+    "prop-types": "latest",
+    "react": "latest",
+    "react-device-detect": "^2.1.2",
+    "react-dom": "latest",
+    "react-perfect-scrollbar": "^1.5.8",
+    "sass": "^1.43.5",
+    "uuid": "^8.3.2"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next",
     "build": "next build",
     "start": "next start",
-    "eject": "react-scripts eject"
+    "lint": "next lint",
+    "prepare": "husky install",
+    "prettier:check": "node_modules/.bin/prettier --check './**/*.js{,x}'",
+    "prettier:format": "node_modules/.bin/prettier --write './**/*.js{,x}'",
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
+    "check:all": "yarn prettier:check"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "prettier": "2.4.1"
   }
 }

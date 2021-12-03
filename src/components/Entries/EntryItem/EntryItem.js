@@ -1,24 +1,27 @@
-import React from "react";
-import { Typography } from "@material-ui/core";
-import EntryDate from "../EntryDate/EntryDate";
-import * as Styled from "./styles";
+import React from 'react';
+import { Typography } from '@mui/material';
+import EntryDate from '@/components/Entries/EntryDate/EntryDate';
+import useStyles from './styles';
 
-const EntryItem = ({
-  entryData: { date, task, project, client, description, time },
-}) => {
+const EntryItem = ({ entryData: { date, task, project, client, description, time } }) => {
+    const classes = useStyles();
 
-  return (
-    <Styled.Container>
-      <EntryDate date={new Date(date)} />
-      <div>
-        <Typography variant="h4" component="p">{task}</Typography>
-        <Styled.Subline>
-          {client} <span>|</span> {project}
-        </Styled.Subline>
-      </div>
-      <Typography variant="h4" component="p">{time} h</Typography>
-    </Styled.Container>
-  );
+    return (
+        <div className={classes.container}>
+            <EntryDate date={new Date(date)} />
+            <div>
+                <Typography variant='h4' component='p'>
+                    {task}
+                </Typography>
+                <p className={classes.subline}>
+                    {client} <span>|</span> {project}
+                </p>
+            </div>
+            <Typography variant='h4' component='p'>
+                {time} h
+            </Typography>
+        </div>
+    );
 };
 
 export default EntryItem;

@@ -13,6 +13,7 @@ import themes from '@/src/themes';
 
 import ClientContextProvider from '@/src/store/contexts/ClientContext';
 import EntryContextProvider from '@/src/store/contexts/EntryContext';
+import MainLayout from '@/src/layout';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -21,7 +22,7 @@ export default function App(props) {
     const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 
     // TODO: for custom theming
-    const customization = {}
+    const customization = {};
 
     return (
         <CacheProvider value={emotionCache}>
@@ -33,9 +34,9 @@ export default function App(props) {
                 <ThemeProvider theme={themes(customization)}>
                     <ClientContextProvider>
                         <EntryContextProvider>
-                            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                            <CssBaseline />
-                            <Component {...pageProps} />
+                           <MainLayout>
+                                <Component {...pageProps} />
+                            </MainLayout>
                         </EntryContextProvider>
                     </ClientContextProvider>
                 </ThemeProvider>

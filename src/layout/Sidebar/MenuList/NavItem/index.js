@@ -21,7 +21,7 @@ const NavItem = ({ item, level }) => {
 
     const Icon = item.icon;
     const itemIcon = item?.icon ? (
-        <Icon stroke={1.5} size="1.3rem" />
+        <Icon stroke={1.5} size='1.3rem' />
     ) : (
         <FiberManualRecordIcon
             // sx={{
@@ -38,7 +38,7 @@ const NavItem = ({ item, level }) => {
     }
 
     let listItemProps = {
-        component: forwardRef((props, ref) => <Link ref={ref} {...props} href={`${config.basename}${item.url}`} />)
+        component: forwardRef((props, ref) => <Link ref={ref} {...props} href={`${config.basename}${item.url}`} />),
     };
     if (item?.external) {
         listItemProps = { component: 'a', href: item.url, target: itemTarget };
@@ -71,21 +71,17 @@ const NavItem = ({ item, level }) => {
                 alignItems: 'flex-start',
                 backgroundColor: level > 1 ? 'transparent !important' : 'inherit',
                 py: level > 1 ? 1 : 1.25,
-                pl: `${level * 24}px`
+                pl: `${level * 24}px`,
             }}
             // selected={config.isOpen.findIndex((id) => id === item.id) > -1}
             onClick={() => itemHandler(item.id)}
         >
             <ListItemIcon sx={{ my: 'auto', minWidth: !item?.icon ? 18 : 36 }}>{itemIcon}</ListItemIcon>
             <ListItemText
-                primary={
-                    <Typography color="inherit">
-                        {item.title}
-                    </Typography>
-                }
+                primary={<Typography color='inherit'>{item.title}</Typography>}
                 secondary={
                     item.caption && (
-                        <Typography variant="caption" sx={{ ...theme.typography.subMenuCaption }} display="block" gutterBottom>
+                        <Typography variant='caption' sx={{ ...theme.typography.subMenuCaption }} display='block' gutterBottom>
                             {item.caption}
                         </Typography>
                     )
@@ -103,6 +99,5 @@ const NavItem = ({ item, level }) => {
         </ListItemButton>
     );
 };
-
 
 export default NavItem;

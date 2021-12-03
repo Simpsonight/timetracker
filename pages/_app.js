@@ -34,7 +34,7 @@ export default function App(props) {
                 <ThemeProvider theme={themes(customization)}>
                     <ClientContextProvider>
                         <EntryContextProvider>
-                           <MainLayout>
+                            <MainLayout>
                                 <Component {...pageProps} />
                             </MainLayout>
                         </EntryContextProvider>

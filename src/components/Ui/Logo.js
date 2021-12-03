@@ -14,9 +14,7 @@ import { useTheme } from '@mui/material/styles';
 const Logo = () => {
     const theme = useTheme();
 
-    return (
-        <div>LOGO</div>
-    );
+    return <div>LOGO</div>;
 };
 
 export default Logo;

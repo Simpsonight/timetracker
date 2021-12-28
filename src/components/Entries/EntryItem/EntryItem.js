@@ -1,10 +1,18 @@
-import React from 'react';
-import { Typography } from '@mui/material';
+import React, { useContext } from 'react';
+import { Typography, Button } from '@mui/material';
 import EntryDate from '@/components/Entries/EntryDate/EntryDate';
+import { EntryContext } from '@/store/contexts/EntryContext';
+import { deleteEntry } from '@/store/reducers/entryReducer';
 import useStyles from './styles';
 
-const EntryItem = ({ entryData: { date, task, project, client, description, time } }) => {
+const EntryItem = ({ entryData: { date, task, project, client, description, time, id } }) => {
     const classes = useStyles();
+    const { dispatch } = useContext(EntryContext);
+
+    const handleDelete = () => {
+        console.log('Delete Item:', id);
+        dispatch(deleteEntry(id));
+    };
 
     return (
         <div className={classes.container}>
@@ -20,6 +28,7 @@ const EntryItem = ({ entryData: { date, task, project, client, description, time
             <Typography variant='h4' component='p'>
                 {time} h
             </Typography>
+            <Button onClick={handleDelete}>Delete</Button>
         </div>
     );
 };

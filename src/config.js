@@ -12,7 +12,7 @@ const config = {
         annual: 120000,
         monthly: 14000,
     },
-    defaultHoursPerWeek: 40
+    defaultHoursPerWeek: 40,
 };
 
 export default config;

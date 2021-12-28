@@ -8,6 +8,11 @@ const config = {
     defaultPath: '',
     fontFamily: `'Roboto', sans-serif`,
     borderRadius: 12,
+    salesTarget: {
+        annual: 120000,
+        monthly: 14000,
+    },
+    defaultHoursPerWeek: 40
 };
 
 export default config;

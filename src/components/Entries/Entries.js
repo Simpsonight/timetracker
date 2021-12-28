@@ -55,7 +55,7 @@ const Entries = () => {
                     return dateB - dateA;
                 }),
         );
-    }, [selectedFilter]);
+    }, [selectedFilter, entries]);
 
     return (
         <>

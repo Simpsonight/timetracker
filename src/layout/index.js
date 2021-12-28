@@ -8,6 +8,7 @@ import { Grid, AppBar, Box, Toolbar, useMediaQuery, CssBaseline } from '@mui/mat
 import Header from './Header';
 import Sidebar from './Sidebar';
 import { drawerWidth } from '../config';
+import Copyright from '@/src/components/Copyright';
 
 // styles
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
@@ -92,6 +93,7 @@ const MainLayout = ({ children }) => {
             {/* main content */}
             <Main theme={theme} open={open}>
                 {children}
+                <Copyright />
             </Main>
         </Box>
     );

@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Typography, Paper } from '@mui/material';
 import { ClientContext } from '@/store/contexts/ClientContext';
 import { EntryContext } from '@/store/contexts/EntryContext';
-import { decimalToTime, timeToDecimal } from '@/helpers/sumTimes';
+import { timeToDecimal } from '@/helpers/sumTimes';
 import { getProjectHourRate } from '@/helpers/getProjectData';
 import config from '@/src/config';
 

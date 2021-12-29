@@ -15,33 +15,33 @@ const Amount = ({ entries }) => {
         return +(getProjectHourRate(entry, clients).hourlyRate * timeToDecimal(entry.time));
     });
 
-    const combinedProjectItems = (entries = []) => {
-        const res = entries.reduce((acc, obj) => {
-            let found = false;
-            let newObj = {};
-
-            for (let i = 0, n = acc.length; i < n; i++) {
-                if (acc[i].projectId === obj.projectId) {
-                    found = true;
-                    acc[i].amount.push(timeToDecimal(obj.time));
-                }
-            }
-
-            if (!found) {
-                newObj.amount = [timeToDecimal(obj.time)];
-                newObj.projectId = obj.projectId;
-                newObj.name = obj.project;
-                newObj.rate = getProjectHourRate(obj, clients).hourlyRate;
-                acc.push(newObj);
-            }
-
-            return acc;
-        }, []);
-
-        return res;
-    };
-
     useEffect(() => {
+        const combinedProjectItems = (entries = []) => {
+            const res = entries.reduce((acc, obj) => {
+                let found = false;
+                let newObj = {};
+
+                for (let i = 0, n = acc.length; i < n; i++) {
+                    if (acc[i].projectId === obj.projectId) {
+                        found = true;
+                        acc[i].amount.push(timeToDecimal(obj.time));
+                    }
+                }
+
+                if (!found) {
+                    newObj.amount = [timeToDecimal(obj.time)];
+                    newObj.projectId = obj.projectId;
+                    newObj.name = obj.project;
+                    newObj.rate = getProjectHourRate(obj, clients).hourlyRate;
+                    acc.push(newObj);
+                }
+
+                return acc;
+            }, []);
+
+            return res;
+        };
+
         setProjectData(
             combinedProjectItems(entries).map((item) => {
                 item.amount = item.amount.reduce((prev, curr) => prev + curr).toFixed(2);
@@ -56,7 +56,7 @@ const Amount = ({ entries }) => {
         } else {
             setSalary(defaultSalary);
         }
-    }, [entries]);
+    }, [entries, calculatedSalaries, clients]);
 
     return (
         <Paper>

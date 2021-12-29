@@ -24,7 +24,7 @@ const SalesTarget = () => {
             setSalary(defaultSalary);
             setPercentage(0);
         }
-    }, [entries]);
+    }, [entries, calculatedSalaries]);
 
     useEffect(() => {
         setPercentage(+((salary * 100) / config.salesTarget.annual).toFixed(2));

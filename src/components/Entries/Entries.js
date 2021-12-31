@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { format, startOfWeek, endOfWeek, isWithinInterval } from 'date-fns';
+// import { format, startOfWeek, endOfWeek, isWithinInterval } from 'date-fns';
+// material-ui
 import { Grid, Typography, Paper } from '@mui/material';
+
+// project imports
+import { filterRange } from '@/src/helpers/filter';
 import { EntryContext } from '@/store/contexts/EntryContext';
 import EntryItem from './EntryItem/EntryItem';
 import EntriesFilter from './EntriesFilter/EntriesFilter';
@@ -23,38 +27,7 @@ const Entries = () => {
     };
 
     useEffect(() => {
-        setFilteredEntries(
-            entries
-                .filter((entry) => {
-                    const entryDate = new Date(entry.date);
-                    const currentDate = new Date();
-                    const START_CURRENT_WEEK = startOfWeek(currentDate, {
-                        weekStartsOn: 1,
-                    });
-                    const END_CURRENT_WEEK = endOfWeek(currentDate, { weekStartsOn: 1 });
-
-                    switch (selectedFilter.type) {
-                        case 'today':
-                            return format(entryDate, 'dd') === format(currentDate, 'dd');
-                        case 'week':
-                            return isWithinInterval(entryDate, {
-                                start: new Date(START_CURRENT_WEEK),
-                                end: new Date(END_CURRENT_WEEK),
-                            });
-                        case 'month':
-                            return format(entryDate, 'MM') === format(currentDate, 'MM');
-                        case 'individual':
-                            return format(entryDate, 'MM/dd/yyyy') === format(new Date(selectedFilter.value), 'MM/dd/yyyy');
-                        default:
-                            return entry;
-                    }
-                })
-                .sort((a, b) => {
-                    const dateA = new Date(a.date);
-                    const dateB = new Date(b.date);
-                    return dateB - dateA;
-                }),
-        );
+        setFilteredEntries(filterRange(entries, selectedFilter.type, selectedFilter.value));
     }, [selectedFilter, entries]);
 
     return (

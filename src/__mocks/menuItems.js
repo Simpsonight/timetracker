@@ -25,6 +25,21 @@ const menuItems = [
         ],
     },
     {
+        id: 'analyses',
+        title: 'Analyses',
+        type: 'group',
+        children: [
+            {
+                id: 'default',
+                title: 'Timesheet',
+                type: 'item',
+                url: '/timesheet',
+                icon: '',
+                breadcrumbs: false,
+            },
+        ],
+    },
+    {
         id: 'admin',
         title: 'Admin',
         caption: 'Settings',

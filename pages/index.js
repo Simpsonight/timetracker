@@ -16,7 +16,7 @@ import { gridSpacing } from '@/src/config';
 export default function Index() {
     const { entries } = useContext(EntryContext);
 
-    const filteredEntries = filterRange(entries, 'week')
+    const filteredEntries = filterRange(entries, 'week');
 
     return (
         <Grid container spacing={gridSpacing}>
